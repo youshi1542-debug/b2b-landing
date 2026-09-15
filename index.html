@@ -1,0 +1,324 @@
+<title>Evolve Hero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* ============================================================
+   Первый экран B2B-лендинга на токенах Evolve Kit
+   Композиция — по референсу GM Studios: фуллскрин-медиа,
+   прозрачная шапка, нижний центрированный блок, угловые CTA.
+   ============================================================ */
+:root{
+  /* палитра кита */
+  --ink-900:#0A1F22; --ink-800:#0E2B2F; --ink-700:#14383D; --ink-600:#1E4046;
+  --sand-100:#F6F4EF; --sand-200:#ECE8E0; --sand-300:#DCD8CF; --sand-400:#C5C0B6;
+  --rosa-300:#FF7AAE; --rosa-400:#FF4D94; --rosa-500:#E0006C; --rosa-600:#C10059; --rosa-700:#A3004B;
+  --agave-500:#0E9E8E; --agave-600:#0B7E72;
+  --grey-500:#7C837F; --grey-700:#3E4A47; --amber:#E2A03F;
+
+  /* семантика — светлая тема (база) */
+  --bg:var(--sand-100); --bg-raised:#FFFFFF; --bg-inset:var(--sand-200);
+  --fg:var(--ink-900); --fg-muted:var(--grey-700); --fg-subtle:var(--grey-500);
+  --border:var(--sand-300); --border-strong:var(--sand-400);
+  --accent:var(--rosa-600); --accent-hover:var(--rosa-700); --accent-fg:#FFFFFF; --accent-text:var(--rosa-600);
+  --focus:var(--agave-500);
+
+  /* сцена героя — «дневная студия» */
+  --stage:#EAE6DE;
+  --stage-deep:#D8D2C6;
+  --stage-line:rgba(10,31,34,.13);
+  --stage-glow:rgba(226,160,63,.22);
+  --stage-fg:var(--ink-900);
+  --stage-fg-muted:rgba(10,31,34,.66);
+  --stage-scrim:linear-gradient(to top, rgba(246,244,239,.97) 0%, rgba(246,244,239,.78) 34%, rgba(246,244,239,.12) 72%, rgba(246,244,239,0) 100%);
+  --stage-hairline:rgba(10,31,34,.16);
+  --stage-tile:rgba(255,255,255,.72);
+  --stage-tile-line:rgba(10,31,34,.2);
+  --stage-block:var(--ink-900);
+  --stage-block-fg:#F3F6F4;
+
+  --s-2:8px; --s-3:12px; --s-4:16px; --s-5:24px; --s-6:32px; --s-7:48px; --s-8:64px;
+  --r-xs:2px; --r-sm:6px; --r-md:10px; --r-pill:999px;
+  --dur-1:120ms; --dur-2:200ms; --dur-3:320ms; --ease:cubic-bezier(.2,.7,.2,1);
+
+  --font-display:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
+  --font-body:"Instrument Sans","Helvetica Neue",Arial,sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:var(--ink-900); --bg-raised:var(--ink-800); --bg-inset:#08191B;
+    --fg:#EDF2F0; --fg-muted:#A8B7B4; --fg-subtle:#7E908D;
+    --border:var(--ink-600); --border-strong:#2C555C;
+    --accent:var(--rosa-400); --accent-hover:var(--rosa-300); --accent-fg:#2A0413; --accent-text:var(--rosa-300);
+    --focus:#3FC9B6;
+    --stage:#0C2429; --stage-deep:#05100F; --stage-line:rgba(226,160,63,.24);
+    --stage-glow:rgba(226,160,63,.3);
+    --stage-fg:#F4F8F6; --stage-fg-muted:rgba(244,248,246,.7);
+    --stage-scrim:linear-gradient(to top, rgba(5,16,15,.96) 0%, rgba(5,16,15,.78) 34%, rgba(5,16,15,.14) 72%, rgba(5,16,15,0) 100%);
+    --stage-hairline:rgba(244,248,246,.22);
+    --stage-tile:rgba(244,248,246,.1);
+    --stage-tile-line:rgba(244,248,246,.28);
+    --stage-block:#0A1F22;
+    --stage-block-fg:#F3F6F4;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:var(--ink-900); --bg-raised:var(--ink-800); --bg-inset:#08191B;
+  --fg:#EDF2F0; --fg-muted:#A8B7B4; --fg-subtle:#7E908D;
+  --border:var(--ink-600); --border-strong:#2C555C;
+  --accent:var(--rosa-400); --accent-hover:var(--rosa-300); --accent-fg:#2A0413; --accent-text:var(--rosa-300);
+  --focus:#3FC9B6;
+  --stage:#0C2429; --stage-deep:#05100F; --stage-line:rgba(226,160,63,.24);
+  --stage-glow:rgba(226,160,63,.3);
+  --stage-fg:#F4F8F6; --stage-fg-muted:rgba(244,248,246,.7);
+  --stage-scrim:linear-gradient(to top, rgba(5,16,15,.96) 0%, rgba(5,16,15,.78) 34%, rgba(5,16,15,.14) 72%, rgba(5,16,15,0) 100%);
+  --stage-hairline:rgba(244,248,246,.22);
+  --stage-tile:rgba(244,248,246,.1);
+  --stage-tile-line:rgba(244,248,246,.28);
+  --stage-block:#0A1F22;
+  --stage-block-fg:#F3F6F4;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0; background:var(--bg); color:var(--fg); font-family:var(--font-body); font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--font-display); font-weight:800; letter-spacing:-.04em; margin:0; text-wrap:balance}
+p{margin:0}
+a{color:inherit; text-decoration:none}
+:focus-visible{outline:2px solid var(--focus); outline-offset:3px; border-radius:var(--r-xs)}
+
+/* ——— шапка ——— */
+.topbar{
+  position:fixed; top:0; left:0; right:0; z-index:30;
+  display:flex; align-items:center; justify-content:space-between; gap:var(--s-5);
+  padding:calc(env(safe-area-inset-top,0px) + 18px) clamp(16px,3.2vw,40px) 18px;
+  color:var(--stage-fg);
+}
+.wordmark{font-family:var(--font-display); font-weight:800; font-size:clamp(17px,2vw,21px); letter-spacing:.06em; text-transform:uppercase}
+.wordmark em{font-style:normal; color:var(--accent-text)}
+.nav{display:none; align-items:center; gap:clamp(14px,1.6vw,26px)}
+@media (min-width:1080px){ .nav{display:flex} }
+.nav a{font-size:12.5px; letter-spacing:.06em; text-transform:uppercase; font-weight:500; color:var(--stage-fg-muted); transition:color var(--dur-2) var(--ease)}
+.nav a:hover,.nav a[aria-current="page"]{color:var(--stage-fg)}
+.nav .sep{width:1px; height:14px; background:var(--stage-hairline)}
+.nav .portal{font-family:var(--font-mono); font-size:11.5px; letter-spacing:.12em}
+.navbtn{
+  display:inline-flex; align-items:center; gap:8px; font:inherit; font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--stage-fg); background:transparent; border:1px solid var(--stage-hairline); border-radius:var(--r-pill);
+  padding:9px 14px; cursor:pointer;
+}
+@media (min-width:1080px){ .navbtn{display:none} }
+.navpanel{
+  position:fixed; z-index:29; top:0; left:0; right:0; padding:86px clamp(16px,4vw,32px) 28px;
+  background:var(--stage-deep); color:var(--stage-fg); border-bottom:1px solid var(--stage-hairline);
+  display:flex; flex-direction:column; gap:var(--s-4);
+}
+.navpanel[hidden]{display:none}
+.navpanel a{font-family:var(--font-display); font-weight:600; font-size:22px; letter-spacing:-.02em}
+
+/* ——— сцена ——— */
+.hero{position:relative; min-height:100%; display:flex; flex-direction:column; justify-content:flex-end; overflow:hidden; isolation:isolate}
+.hero__media{position:absolute; inset:0; z-index:-2; background:
+  radial-gradient(64% 42% at 50% 78%, var(--stage-glow) 0%, transparent 70%),
+  radial-gradient(120% 86% at 50% 16%, var(--stage) 0%, var(--stage-deep) 72%);
+}
+/* панельная стена: двойные молдинги, как на референсе */
+.hero__media::before{
+  content:""; position:absolute; inset:-8%;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 calc(var(--panel) - 2px), var(--stage-line) calc(var(--panel) - 2px) calc(var(--panel) - 1px), transparent calc(var(--panel) - 1px) calc(var(--panel) + 5px), var(--stage-line) calc(var(--panel) + 5px) calc(var(--panel) + 6px), transparent calc(var(--panel) + 6px) var(--panel)),
+    repeating-linear-gradient(0deg, transparent 0 calc(var(--panel-y) - 2px), var(--stage-line) calc(var(--panel-y) - 2px) calc(var(--panel-y) - 1px), transparent calc(var(--panel-y) - 1px) calc(var(--panel-y) + 5px), var(--stage-line) calc(var(--panel-y) + 5px) calc(var(--panel-y) + 6px), transparent calc(var(--panel-y) + 6px) var(--panel-y));
+  --panel:190px; --panel-y:230px;
+  opacity:.85;
+}
+@media (min-width:900px){ .hero__media::before{--panel:240px; --panel-y:280px} }
+/* виньетка + зерно */
+.hero__media::after{
+  content:""; position:absolute; inset:0;
+  background:
+    radial-gradient(130% 100% at 50% 45%, transparent 38%, rgba(0,0,0,.42) 100%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+  background-size:auto, 160px 160px;
+  mix-blend-mode:soft-light; opacity:.55;
+}
+.hero__scrim{position:absolute; inset:0; z-index:-1; background:var(--stage-scrim)}
+.media-note{
+  position:absolute; top:calc(env(safe-area-inset-top,0px) + 96px); left:clamp(16px,3.2vw,40px); z-index:5;
+  font-family:var(--font-mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--stage-fg-muted); border:1px dashed var(--stage-hairline); border-radius:var(--r-xs); padding:5px 9px;
+}
+
+/* ——— контент героя ——— */
+.hero__inner{
+  position:relative; z-index:4; color:var(--stage-fg); text-align:center;
+  padding:clamp(120px,18vh,200px) clamp(16px,5vw,40px) clamp(28px,4vh,44px);
+  display:flex; flex-direction:column; align-items:center; gap:var(--s-5);
+  max-width:1280px; margin:0 auto; width:100%;
+}
+.kicker{display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:10px; font-size:14px; font-style:italic; color:var(--stage-fg-muted)}
+.stars{color:var(--accent-text); letter-spacing:.14em; font-style:normal; font-size:12px}
+.kicker .divider{color:var(--stage-hairline); font-style:normal}
+.hero h1{
+  text-transform:uppercase; font-size:clamp(40px,9.2vw,114px); line-height:.9; letter-spacing:-.045em;
+  color:var(--stage-fg); max-width:16ch;
+}
+.hero h1 .line2{display:block; color:var(--stage-fg)}
+.hero__sub{max-width:56ch; font-size:14.5px; line-height:1.65; color:var(--stage-fg-muted)}
+
+/* ——— угловые CTA ——— */
+.ctas{position:relative; z-index:4; display:flex; flex-direction:column; gap:var(--s-3); padding:0 clamp(16px,5vw,40px) calc(env(safe-area-inset-bottom,0px) + 24px); width:100%; max-width:640px; margin:0 auto}
+@media (min-width:900px){
+  .hero__inner{padding-bottom:clamp(96px,13vh,138px)}
+  .ctas{position:absolute; inset:auto 0 0 0; max-width:none; flex-direction:row; justify-content:space-between; align-items:flex-end; padding-bottom:calc(env(safe-area-inset-bottom,0px) + 34px); pointer-events:none}
+  .cta{pointer-events:auto}
+}
+.cta{display:flex; align-items:stretch; min-height:56px; border-radius:var(--r-xs); overflow:hidden; transition:transform var(--dur-2) var(--ease)}
+.cta__tile{
+  display:grid; place-items:center; width:56px; flex:0 0 56px;
+  background:var(--stage-tile); border:1px solid var(--stage-tile-line); border-right:0;
+  color:var(--stage-fg); font-size:15px; transition:background var(--dur-2) var(--ease), color var(--dur-2) var(--ease);
+}
+.cta__label{
+  display:flex; align-items:center; padding:0 clamp(20px,3vw,40px); flex:1 1 auto;
+  background:var(--stage-block); color:var(--stage-block-fg);
+  font-weight:600; font-size:13.5px; letter-spacing:.14em; text-transform:uppercase; white-space:nowrap;
+  transition:background var(--dur-2) var(--ease), color var(--dur-2) var(--ease);
+}
+.cta--accent .cta__label{background:var(--accent); color:var(--accent-fg)}
+.cta:hover .cta__tile{background:var(--stage-block); color:var(--stage-block-fg)}
+.cta--accent:hover .cta__label{background:var(--accent-hover)}
+.cta:hover{transform:translateY(-2px)}
+.cta:active{transform:translateY(0)}
+.cta__arrow{transition:transform var(--dur-2) var(--ease)}
+.cta:hover .cta__arrow{transform:translate(2px,-2px)}
+
+/* ——— индикатор прокрутки ——— */
+.scrollhint{position:absolute; right:clamp(10px,1.6vw,18px); top:50%; transform:translateY(-50%); z-index:4; display:none}
+@media (min-width:1080px){ .scrollhint{display:block} }
+.scrollhint span{display:block; width:2px; height:110px; background:var(--stage-hairline); position:relative; overflow:hidden; border-radius:var(--r-pill)}
+.scrollhint span::after{content:""; position:absolute; inset:0 0 auto 0; height:34px; background:var(--stage-fg); border-radius:var(--r-pill); animation:track 3.2s var(--ease) infinite}
+@keyframes track{0%{transform:translateY(-38px)} 55%{transform:translateY(110px)} 100%{transform:translateY(110px)}}
+
+/* ——— полоса-передача под первым экраном ——— */
+.spec{background:var(--bg); color:var(--fg); border-top:1px solid var(--border)}
+.spec__in{max-width:1180px; margin:0 auto; padding-inline:clamp(16px,4vw,32px); padding-block:var(--s-8)}
+.spec__head{display:flex; flex-wrap:wrap; gap:var(--s-4); align-items:baseline; justify-content:space-between; margin-bottom:var(--s-6)}
+.eyebrow{font-family:var(--font-mono); font-size:11px; letter-spacing:.11em; text-transform:uppercase; color:var(--fg-subtle)}
+.spec__head h2{font-family:var(--font-display); font-weight:600; font-size:clamp(22px,3vw,30px); letter-spacing:-.025em}
+.spec__grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:var(--s-5)}
+.spec__item{display:flex; flex-direction:column; gap:6px; border-top:1px solid var(--border); padding-top:var(--s-3)}
+.spec__item h3{font-family:var(--font-display); font-weight:600; font-size:15px; letter-spacing:-.01em}
+.spec__item p{font-size:13.5px; color:var(--fg-muted)}
+.spec__item code{font-family:var(--font-mono); font-size:12px; color:var(--accent-text)}
+.spec__foot{margin-top:var(--s-6); display:flex; flex-wrap:wrap; gap:var(--s-3); align-items:center; justify-content:space-between; font-size:13px; color:var(--fg-subtle)}
+.ghost{display:inline-flex; align-items:center; gap:8px; height:36px; padding:0 14px; border:1px solid var(--border-strong); border-radius:var(--r-sm); font-size:13px; font-weight:600; background:transparent; color:var(--fg); cursor:pointer}
+.ghost:hover{border-color:var(--fg)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important}
+}
+</style>
+
+<header class="topbar">
+  <a class="wordmark" href="#top">We<em>Evolve</em>IT</a>
+  <nav class="nav" aria-label="Основная навигация">
+    <a href="#top" aria-current="page">Accueil</a>
+    <a href="#spec">Agency</a>
+    <a href="#spec">Method</a>
+    <a href="#spec">Case studies</a>
+    <a href="#spec">Team</a>
+    <a href="#spec">Services</a>
+    <a href="#spec">Careers</a>
+    <a href="#spec">Contact</a>
+    <span class="sep" aria-hidden="true"></span>
+    <a class="portal" href="#spec">Client portal</a>
+  </nav>
+  <button class="navbtn" id="navBtn" type="button" aria-expanded="false" aria-controls="navPanel">Menu</button>
+</header>
+
+<div class="navpanel" id="navPanel" hidden>
+  <a href="#spec">Agency</a>
+  <a href="#spec">Method</a>
+  <a href="#spec">Case studies</a>
+  <a href="#spec">Services</a>
+  <a href="#spec">Careers</a>
+  <a href="#spec">Contact</a>
+  <a href="#spec" class="portal">Client portal</a>
+</div>
+
+<main id="top">
+  <section class="hero">
+    <div class="hero__media" aria-hidden="true"></div>
+    <div class="hero__scrim" aria-hidden="true"></div>
+    <p class="media-note">Слот под фоновое видео 1920×1080</p>
+
+    <div class="hero__inner">
+      <p class="kicker">
+        <span class="stars" aria-hidden="true">★★★★★</span>
+        <span>Оценка 5.0 от 450+ клиентов</span>
+        <span class="divider" aria-hidden="true">—</span>
+        <span>AI-first студия · Монтеррей и Дубай</span>
+      </p>
+      <h1>Tech that moves<span class="line2">the numbers</span></h1>
+      <p class="hero__sub">Мы превращаем идеи в системы, которые работают на выручку: стратегия, диагностика, дизайн, внедрение и развитие после запуска.</p>
+    </div>
+
+    <div class="ctas">
+      <a class="cta" href="#spec"><span class="cta__tile"><span class="cta__arrow" aria-hidden="true">↗</span></span><span class="cta__label">The agency</span></a>
+      <a class="cta cta--accent" href="#spec"><span class="cta__tile"><span class="cta__arrow" aria-hidden="true">↗</span></span><span class="cta__label">Let's talk</span></a>
+    </div>
+
+    <div class="scrollhint" aria-hidden="true"><span></span></div>
+  </section>
+
+  <section class="spec" id="spec">
+    <div class="spec__in">
+      <div class="spec__head">
+        <div>
+          <p class="eyebrow">Разбор экрана</p>
+          <h2>Что из кита пошло в дело</h2>
+        </div>
+        <button class="ghost" id="themeToggle" type="button">Тема: система</button>
+      </div>
+      <div class="spec__grid">
+        <div class="spec__item"><h3>Заголовок</h3><p>Bricolage Grotesque 800, uppercase, <code>clamp(40px → 114px)</code>, интерлиньяж 0.9, трекинг −0.045em.</p></div>
+        <div class="spec__item"><h3>Кикер со звёздами</h3><p>Instrument Sans italic 14px; звёзды — акцент <code>--accent-text</code>, единственное цветное пятно сверху.</p></div>
+        <div class="spec__item"><h3>Подзаголовок</h3><p>14.5px / 1.65, ширина ≤ 56 знаков, цвет <code>--stage-fg-muted</code>.</p></div>
+        <div class="spec__item"><h3>Угловые CTA</h3><p>Плитка 56×56 со стрелкой + блок-лейбл: слева нейтральный <code>--stage-block</code>, справа акцентный <code>--accent</code>.</p></div>
+        <div class="spec__item"><h3>Сцена</h3><p>Панельная стена, тёплое свечение и зерно собраны на CSS-градиентах: готовый слот под видео без внешних файлов.</p></div>
+        <div class="spec__item"><h3>Навигация</h3><p>12.5px uppercase, +0.06em; активный пункт — <code>--stage-fg</code>, остальные приглушены; «Client portal» отделён волоском.</p></div>
+        <div class="spec__item"><h3>Две темы</h3><p>Ночная студия и дневная — один набор <code>--stage-*</code> токенов, переключатель рядом.</p></div>
+        <div class="spec__item"><h3>Движение</h3><p>Ховеры 200ms на <code>--ease</code>, сдвиг стрелки на 2px, индикатор прокрутки; всё выключается при <code>reduced-motion</code>.</p></div>
+      </div>
+      <div class="spec__foot">
+        <span>Первый экран занимает ровно высоту окна с учётом safe-area; на &lt;900px угловые CTA превращаются в стек на всю ширину.</span>
+        <span class="eyebrow">Evolve Kit · v1.0</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+(function(){
+  var root=document.documentElement, btn=document.getElementById('themeToggle');
+  var order=['system','light','dark'], names={system:'система',light:'дневная',dark:'ночная'}, i=0;
+  function apply(){
+    var m=order[i];
+    if(m==='system'){ root.removeAttribute('data-theme'); } else { root.setAttribute('data-theme',m); }
+    btn.textContent='Тема: '+names[m];
+    try{ localStorage.setItem('evolve-hero-theme',m); }catch(e){}
+  }
+  try{ var s=localStorage.getItem('evolve-hero-theme'); if(s&&order.indexOf(s)>-1){ i=order.indexOf(s); apply(); } }catch(e){}
+  btn.addEventListener('click',function(){ i=(i+1)%order.length; apply(); });
+
+  var nb=document.getElementById('navBtn'), np=document.getElementById('navPanel');
+  nb.addEventListener('click',function(){
+    var open=nb.getAttribute('aria-expanded')==='true';
+    nb.setAttribute('aria-expanded',String(!open));
+    np.hidden=open;
+    nb.textContent=open?'Menu':'Close';
+  });
+  np.addEventListener('click',function(e){ if(e.target.tagName==='A'){ nb.setAttribute('aria-expanded','false'); np.hidden=true; nb.textContent='Menu'; } });
+})();
+</script>
