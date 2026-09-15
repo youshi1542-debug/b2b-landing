@@ -37,6 +37,8 @@
   --stage-block:#0A1F22;
   --stage-block-fg:#F3F6F4;
 
+  --globe-core:#164049; --globe-core-2:#05171A; --globe-dot:#CFE5DF; --globe-rim:rgba(14,158,142,.45);
+
   --s-2:8px; --s-3:12px; --s-4:16px; --s-5:24px; --s-6:32px; --s-7:48px; --s-8:64px;
   --r-xs:2px; --r-sm:6px; --r-md:10px; --r-pill:999px;
   --dur-1:120ms; --dur-2:200ms; --dur-3:320ms; --ease:cubic-bezier(.2,.7,.2,1);
@@ -51,6 +53,7 @@
     --fg:#EDF2F0; --fg-muted:#A8B7B4; --fg-subtle:#7E908D;
     --border:var(--ink-600); --border-strong:#2C555C;
     --accent:var(--rosa-400); --accent-hover:var(--rosa-300); --accent-fg:#2A0413; --accent-text:var(--rosa-300);
+    --globe-core:#13363D; --globe-core-2:#040F11; --globe-dot:#B7DCD5; --globe-rim:rgba(63,201,182,.42);
     --focus:#3FC9B6;
     --stage:#0C2429; --stage-deep:#05100F; --stage-line:rgba(226,160,63,.24);
     --stage-glow:rgba(226,160,63,.3);
@@ -68,6 +71,7 @@
   --fg:#EDF2F0; --fg-muted:#A8B7B4; --fg-subtle:#7E908D;
   --border:var(--ink-600); --border-strong:#2C555C;
   --accent:var(--rosa-400); --accent-hover:var(--rosa-300); --accent-fg:#2A0413; --accent-text:var(--rosa-300);
+  --globe-core:#13363D; --globe-core-2:#040F11; --globe-dot:#B7DCD5; --globe-rim:rgba(63,201,182,.42);
   --focus:#3FC9B6;
   --stage:#0C2429; --stage-deep:#05100F; --stage-line:rgba(226,160,63,.24);
   --stage-glow:rgba(226,160,63,.3);
@@ -95,6 +99,11 @@ a{color:inherit; text-decoration:none}
   padding:calc(env(safe-area-inset-top,0px) + 18px) clamp(16px,3.2vw,40px) 18px;
   color:var(--stage-fg);
 }
+.topbar.is-solid{background:var(--bg); border-bottom:1px solid var(--border); color:var(--fg); transition:background var(--dur-3) var(--ease)}
+.topbar.is-solid .nav a{color:var(--fg-muted)}
+.topbar.is-solid .nav a:hover,.topbar.is-solid .nav a[aria-current="page"]{color:var(--fg)}
+.topbar.is-solid .nav .sep{background:var(--border)}
+.topbar.is-solid .navbtn{color:var(--fg); border-color:var(--border-strong)}
 .wordmark{font-family:var(--font-display); font-weight:800; font-size:clamp(17px,2vw,21px); letter-spacing:.06em; text-transform:uppercase}
 .wordmark em{font-style:normal; color:var(--accent-text)}
 .nav{display:none; align-items:center; gap:clamp(14px,1.6vw,26px)}
@@ -196,6 +205,36 @@ a{color:inherit; text-decoration:none}
 .scrollhint span::after{content:""; position:absolute; inset:0 0 auto 0; height:34px; background:var(--stage-fg); border-radius:var(--r-pill); animation:track 3.2s var(--ease) infinite}
 @keyframes track{0%{transform:translateY(-38px)} 55%{transform:translateY(110px)} 100%{transform:translateY(110px)}}
 
+
+/* ——— блок присутствия ——— */
+.presence{position:relative; overflow:hidden; background:var(--bg); color:var(--fg); border-top:1px solid var(--border)}
+.presence__in{position:relative; max-width:1180px; margin:0 auto; padding-inline:clamp(16px,4vw,32px); padding-block:clamp(48px,7vw,88px) clamp(36px,5vw,64px); display:flex; flex-direction:column; gap:clamp(24px,3.4vw,38px)}
+.presence h2{font-family:var(--font-display); font-weight:800; text-transform:uppercase; font-size:clamp(28px,5.2vw,58px); line-height:.94; letter-spacing:-.04em; max-width:none; position:relative; z-index:2}
+.globe{position:relative; z-index:1; width:min(560px,104%); aspect-ratio:1; margin:0 auto -14%; touch-action:pan-y}
+.globe canvas{display:block; width:100%; height:100%;
+  -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 44%,rgba(0,0,0,.5) 70%,transparent 88%);
+  mask-image:linear-gradient(to bottom,#000 0%,#000 44%,rgba(0,0,0,.5) 70%,transparent 88%);
+}
+.globe__tip{position:absolute; z-index:5; left:0; top:0; transform:translate(-50%,-150%); background:var(--fg); color:var(--bg);
+  font-family:var(--font-mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; padding:5px 9px; border-radius:var(--r-xs);
+  pointer-events:none; white-space:nowrap; opacity:0; transition:opacity var(--dur-2) var(--ease)}
+.globe__tip.is-on{opacity:1}
+@media (min-width:900px){
+  .globe{position:absolute; z-index:1; top:clamp(0px,1.5vw,40px); right:-4%; width:min(700px,52vw); margin:0; pointer-events:auto}
+  .presence__in{padding-top:clamp(64px,7vw,92px)}
+  .stats{margin-top:clamp(120px,17vw,215px)}
+}
+.stats{position:relative; z-index:2; display:grid; grid-template-columns:repeat(3,1fr); gap:6px; width:100%; max-width:900px; margin-inline:auto}
+@media (max-width:560px){ .stats{grid-template-columns:1fr} }
+.stat{background:var(--accent); color:var(--accent-fg); border-radius:var(--r-xs); padding:clamp(14px,2.2vw,22px) 12px; text-align:center}
+.stat b{display:block; font-family:var(--font-display); font-weight:800; font-size:clamp(30px,4.6vw,52px); line-height:1; letter-spacing:-.035em; font-variant-numeric:tabular-nums}
+.stat span{display:block; margin-top:8px; font-family:var(--font-mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; opacity:.88}
+.countries{position:relative; z-index:2; display:flex; flex-wrap:wrap; justify-content:center; gap:7px 18px; max-width:1040px; margin-inline:auto}
+.country{font:inherit; font-size:14px; line-height:1.4; color:var(--fg-muted); background:none; border:0; border-bottom:1px solid transparent; padding:1px 0; cursor:pointer;
+  transition:color var(--dur-2) var(--ease), border-color var(--dur-2) var(--ease)}
+.country:hover,.country.is-active{color:var(--accent-text); border-bottom-color:currentColor}
+.presence__foot{position:relative; z-index:2; text-align:center; font-family:var(--font-mono); font-size:10.5px; letter-spacing:.11em; text-transform:uppercase; color:var(--fg-subtle)}
+
 /* ——— полоса-передача под первым экраном ——— */
 .spec{background:var(--bg); color:var(--fg); border-top:1px solid var(--border)}
 .spec__in{max-width:1180px; margin:0 auto; padding-inline:clamp(16px,4vw,32px); padding-block:var(--s-8)}
@@ -270,6 +309,27 @@ a{color:inherit; text-decoration:none}
     <div class="scrollhint" aria-hidden="true"><span></span></div>
   </section>
 
+
+  <section class="presence" id="presence">
+    <div class="presence__in">
+      <h2>The presence of<br>VR Arena</h2>
+
+      <div class="globe" id="globe">
+        <canvas id="globeCanvas"></canvas>
+        <div class="globe__tip" id="globeTip" role="status" aria-live="polite"></div>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><b>35+</b><span>Countries</span></div>
+        <div class="stat"><b>200+</b><span>VR Arenas</span></div>
+        <div class="stat"><b>160+</b><span>Cities</span></div>
+      </div>
+
+      <div class="countries" id="countries"></div>
+      <p class="presence__foot">Наведите на страну — планета повернётся к ней</p>
+    </div>
+  </section>
+
   <section class="spec" id="spec">
     <div class="spec__in">
       <div class="spec__head">
@@ -317,6 +377,181 @@ a{color:inherit; text-decoration:none}
     np.hidden=open;
     nb.textContent=open?'Menu':'Close';
   });
+  var bar=document.querySelector('.topbar'), hero=document.querySelector('.hero');
+  if('IntersectionObserver' in window && hero){
+    new IntersectionObserver(function(en){ bar.classList.toggle('is-solid', !en[0].isIntersecting); },
+      {rootMargin:'-90px 0px 0px 0px', threshold:0}).observe(hero);
+  }
   np.addEventListener('click',function(e){ if(e.target.tagName==='A'){ nb.setAttribute('aria-expanded','false'); np.hidden=true; nb.textContent='Menu'; } });
+})();
+</script>
+
+<script>
+(function(){
+  var DATA=[
+    ['Australia',-25.3,133.8],['Argentina',-38.0,-63.6],['Africa',7.0,21.0],['Brazil',-10.3,-53.2],
+    ['United Kingdom',54.0,-2.2],['Germany',51.2,10.4],['Georgia',42.3,43.4],['Israel',31.5,34.9],
+    ['India',21.1,78.7],['Spain',40.2,-3.7],['Italy',42.8,12.6],['Kazakhstan',48.2,67.0],
+    ['Canada',56.1,-106.3],['Thailand',15.1,101.0],['Turkey',39.0,35.2],['Montenegro',42.7,19.4],
+    ['Qatar',25.3,51.2],['Cyprus',35.1,33.4],['China',35.9,104.2],['Poland',52.0,19.1],
+    ['Lebanon',33.9,35.9],['Latvia',56.9,24.6],['Lithuania',55.2,23.9],['Moldova',47.2,28.5],
+    ['United Arab Emirates',24.0,54.0],['Oman',21.5,55.9],['Saudi Arabia',24.0,45.1],
+    ['United States',39.8,-98.6],['Tajikistan',38.9,71.3],['Sudan',15.6,30.2],['Ecuador',-1.8,-78.2]
+  ];
+  var wrap=document.getElementById('globe'), cv=document.getElementById('globeCanvas'),
+      tip=document.getElementById('globeTip'), list=document.getElementById('countries');
+  if(!cv) return;
+  var ctx=cv.getContext('2d'), W=0,H=0,R=0,dpr=1;
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // кнопки стран
+  var btns=DATA.map(function(d,i){
+    var b=document.createElement('button');
+    b.type='button'; b.className='country'; b.textContent=d[0]; b.dataset.i=i;
+    b.addEventListener('mouseenter',function(){focus(i);});
+    b.addEventListener('focus',function(){focus(i);});
+    b.addEventListener('mouseleave',release);
+    b.addEventListener('blur',release);
+    list.appendChild(b); return b;
+  });
+
+  // цвета из токенов
+  var C={};
+  function readTokens(){
+    var cs=getComputedStyle(document.documentElement);
+    C.core=cs.getPropertyValue('--globe-core').trim();
+    C.core2=cs.getPropertyValue('--globe-core-2').trim();
+    C.dot=cs.getPropertyValue('--globe-dot').trim();
+    C.rim=cs.getPropertyValue('--globe-rim').trim();
+    C.marker=cs.getPropertyValue('--accent').trim();
+  }
+  readTokens();
+  new MutationObserver(readTokens).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+  if(window.matchMedia) window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',readTokens);
+
+  // сетка точек по сфере
+  var GRID=[];
+  for(var la=-84; la<=84; la+=5.5){
+    var rad=la*Math.PI/180, n=Math.max(8,Math.round(74*Math.cos(rad)));
+    for(var k=0;k<n;k++) GRID.push([rad,(k/n)*2*Math.PI-Math.PI]);
+  }
+
+  function resize(){
+    var r=wrap.getBoundingClientRect();
+    dpr=Math.min(window.devicePixelRatio||1,2);
+    W=Math.max(1,Math.round(r.width)); H=Math.max(1,Math.round(r.height));
+    cv.width=W*dpr; cv.height=H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+    R=Math.min(W,H)*0.44;
+  }
+  new ResizeObserver(resize).observe(wrap); resize();
+
+  var yaw=-0.6, pitch=0.30, yawGoal=null, pitchGoal=null, mx=0, my=0, tmx=0, tmy=0, hovered=-1, focused=-1;
+
+  function focus(i){
+    focused=i; var lon=DATA[i][2]*Math.PI/180, lat=DATA[i][1]*Math.PI/180;
+    yawGoal=-lon; pitchGoal=Math.max(-0.5,Math.min(0.6,lat*0.55+0.08));
+    while(yawGoal-yaw>Math.PI) yawGoal-=2*Math.PI;
+    while(yawGoal-yaw<-Math.PI) yawGoal+=2*Math.PI;
+    setActive(i);
+  }
+  function release(){ focused=-1; yawGoal=null; pitchGoal=null; setActive(hovered); }
+  function setActive(i){
+    for(var k=0;k<btns.length;k++) btns[k].classList.toggle('is-active',k===i);
+  }
+
+  function project(lat,lon,ey,ep){
+    var la=lat, lo=lon+ey;
+    var x=Math.cos(la)*Math.sin(lo), y=Math.sin(la), z=Math.cos(la)*Math.cos(lo);
+    var y2=y*Math.cos(ep)-z*Math.sin(ep), z2=y*Math.sin(ep)+z*Math.cos(ep);
+    return [W/2+x*R, H/2-y2*R, z2];
+  }
+
+  var pts=new Array(DATA.length);
+  function draw(){
+    var ey=yaw+mx*0.45, ep=pitch+my*0.22;
+    ctx.clearRect(0,0,W,H);
+    var cx=W/2, cy=H/2;
+
+    // тело планеты со светом сверху-слева
+    var g=ctx.createRadialGradient(cx-R*0.42,cy-R*0.46,R*0.06,cx,cy,R*1.02);
+    g.addColorStop(0,C.core); g.addColorStop(1,C.core2);
+    ctx.beginPath(); ctx.arc(cx,cy,R,0,6.283); ctx.fillStyle=g; ctx.fill();
+
+    // точечная сетка по глубине
+    var buckets=[[],[],[],[],[]];
+    for(var i=0;i<GRID.length;i++){
+      var p=project(GRID[i][0],GRID[i][1],ey,ep);
+      if(p[2]<=0.02) continue;
+      buckets[Math.min(4,Math.floor(p[2]*5))].push(p);
+    }
+    for(var b=0;b<5;b++){
+      var arr=buckets[b]; if(!arr.length) continue;
+      ctx.globalAlpha=0.10+b*0.17; ctx.fillStyle=C.dot;
+      ctx.beginPath();
+      for(var j=0;j<arr.length;j++){ var q=arr[j], rr=0.7+b*0.22; ctx.moveTo(q[0]+rr,q[1]); ctx.arc(q[0],q[1],rr,0,6.283); }
+      ctx.fill();
+    }
+    ctx.globalAlpha=1;
+
+    // терминатор
+    var sh=ctx.createRadialGradient(cx-R*0.5,cy-R*0.55,R*0.1,cx,cy,R*1.05);
+    sh.addColorStop(0,'rgba(0,0,0,0)'); sh.addColorStop(0.62,'rgba(0,0,0,.12)'); sh.addColorStop(1,'rgba(0,0,0,.55)');
+    ctx.save(); ctx.beginPath(); ctx.arc(cx,cy,R,0,6.283); ctx.clip(); ctx.fillStyle=sh; ctx.fillRect(0,0,W,H); ctx.restore();
+
+    // атмосфера
+    ctx.beginPath(); ctx.arc(cx,cy,R+0.5,0,6.283);
+    ctx.strokeStyle=C.rim; ctx.lineWidth=1.4; ctx.shadowColor=C.rim; ctx.shadowBlur=18; ctx.stroke(); ctx.shadowBlur=0;
+
+    // точки присутствия
+    for(var m=0;m<DATA.length;m++){
+      var pm=project(DATA[m][1]*Math.PI/180,DATA[m][2]*Math.PI/180,ey,ep);
+      pts[m]=pm;
+      if(pm[2]<=0.02) continue;
+      var on=(m===hovered||m===focused), a=0.35+pm[2]*0.65;
+      ctx.globalAlpha=on?1:a;
+      if(on){ ctx.shadowColor=C.marker; ctx.shadowBlur=14; }
+      ctx.fillStyle=C.marker;
+      ctx.beginPath(); ctx.arc(pm[0],pm[1],on?4.6:2.6,0,6.283); ctx.fill();
+      ctx.shadowBlur=0;
+      if(on){
+        ctx.globalAlpha=0.45; ctx.strokeStyle=C.marker; ctx.lineWidth=1.2;
+        ctx.beginPath(); ctx.arc(pm[0],pm[1],10,0,6.283); ctx.stroke();
+      }
+      ctx.globalAlpha=1;
+    }
+  }
+
+  function tick(){
+    mx+=(tmx-mx)*0.06; my+=(tmy-my)*0.06;
+    if(yawGoal!==null){ yaw+=(yawGoal-yaw)*0.07; pitch+=(pitchGoal-pitch)*0.07; }
+    else if(!reduce){ yaw+=0.0016; }
+    draw();
+    requestAnimationFrame(tick);
+  }
+  if(reduce){ draw(); } else { requestAnimationFrame(tick); }
+
+  // мышь: параллакс + подсветка точек
+  var sect=document.getElementById('presence');
+  sect.addEventListener('mousemove',function(e){
+    var r=sect.getBoundingClientRect();
+    tmx=((e.clientX-r.left)/r.width-0.5)*2;
+    tmy=((e.clientY-r.top)/r.height-0.5)*2;
+    if(reduce) draw();
+    var g=wrap.getBoundingClientRect(), lx=e.clientX-g.left, ly=e.clientY-g.top, best=-1, bd=16;
+    for(var i=0;i<pts.length;i++){
+      var p=pts[i]; if(!p||p[2]<=0.02) continue;
+      var d=Math.hypot(p[0]-lx,p[1]-ly);
+      if(d<bd){ bd=d; best=i; }
+    }
+    if(best!==hovered){
+      hovered=best;
+      if(best>-1){ tip.textContent=DATA[best][0]; tip.style.left=pts[best][0]+'px'; tip.style.top=pts[best][1]+'px'; tip.classList.add('is-on'); }
+      else tip.classList.remove('is-on');
+      if(focused<0) setActive(hovered);
+    } else if(best>-1){ tip.style.left=pts[best][0]+'px'; tip.style.top=pts[best][1]+'px'; }
+  });
+  sect.addEventListener('mouseleave',function(){
+    tmx=0; tmy=0; hovered=-1; tip.classList.remove('is-on'); if(focused<0) setActive(-1);
+  });
 })();
 </script>
