@@ -1,0 +1,800 @@
+<title>Evolve Kit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* ============================================================
+   EVOLVE KIT — UI/UX kit по мотивам weevolveit.com
+   Токены: цвет / тип / ритм / движение
+   ============================================================ */
+:root{
+  /* — сырые значения палитры — */
+  --ink-900:#0A1F22; --ink-800:#0E2B2F; --ink-700:#14383D; --ink-600:#1E4046;
+  --sand-50:#FBFAF7; --sand-100:#F6F4EF; --sand-200:#ECE8E0; --sand-300:#DCD8CF; --sand-400:#C5C0B6;
+  --rosa-300:#FF7AAE; --rosa-400:#FF4D94; --rosa-500:#E0006C; --rosa-600:#C10059; --rosa-700:#A3004B; --rosa-50:#FFE6F0;
+  --agave-500:#0E9E8E; --agave-600:#0B7E72; --agave-50:#DFF3F0;
+  --grey-500:#7C837F; --grey-700:#3E4A47;
+  --green-600:#1E8E5A; --amber-700:#B5730B; --red-600:#C62828;
+
+  /* — семантические токены (светлая тема — база) — */
+  --bg:var(--sand-100);
+  --bg-raised:#FFFFFF;
+  --bg-inset:var(--sand-200);
+  --bg-invert:var(--ink-900);
+  --fg:var(--ink-900);
+  --fg-muted:var(--grey-700);
+  --fg-subtle:var(--grey-500);
+  --fg-invert:#EDF2F0;
+  --border:var(--sand-300);
+  --border-strong:var(--sand-400);
+  --accent:var(--rosa-600);
+  --accent-hover:var(--rosa-700);
+  --accent-fg:#FFFFFF;
+  --accent-text:var(--rosa-600);
+  --accent-quiet:var(--rosa-50);
+  --support:var(--agave-600);
+  --support-quiet:var(--agave-50);
+  --focus:var(--agave-500);
+  --success:var(--green-600);
+  --warning:var(--amber-700);
+  --danger:var(--red-600);
+  --shadow-1:0 1px 2px rgba(10,31,34,.08);
+  --shadow-2:0 8px 24px -12px rgba(10,31,34,.28);
+
+  /* — ритм — */
+  --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:24px; --s-6:32px; --s-7:48px; --s-8:64px; --s-9:96px;
+  --r-xs:2px; --r-sm:6px; --r-md:10px; --r-pill:999px;
+  --dur-1:120ms; --dur-2:200ms; --dur-3:320ms;
+  --ease:cubic-bezier(.2,.7,.2,1);
+
+  /* — шрифты — */
+  --font-display:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
+  --font-body:"Instrument Sans","Helvetica Neue",Arial,sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:var(--ink-900); --bg-raised:var(--ink-800); --bg-inset:#08191B; --bg-invert:var(--sand-100);
+    --fg:#EDF2F0; --fg-muted:#A8B7B4; --fg-subtle:#7E908D; --fg-invert:var(--ink-900);
+    --border:var(--ink-600); --border-strong:#2C555C;
+    --accent:var(--rosa-400); --accent-hover:var(--rosa-300); --accent-fg:#2A0413; --accent-text:var(--rosa-300);
+    --accent-quiet:#2B1020; --support:#3FC9B6; --support-quiet:#0C2E2C; --focus:#3FC9B6;
+    --success:#3FBE83; --warning:#E2A03F; --danger:#F0736E;
+    --shadow-1:0 1px 2px rgba(0,0,0,.5); --shadow-2:0 12px 32px -14px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:var(--ink-900); --bg-raised:var(--ink-800); --bg-inset:#08191B; --bg-invert:var(--sand-100);
+  --fg:#EDF2F0; --fg-muted:#A8B7B4; --fg-subtle:#7E908D; --fg-invert:var(--ink-900);
+  --border:var(--ink-600); --border-strong:#2C555C;
+  --accent:var(--rosa-400); --accent-hover:var(--rosa-300); --accent-fg:#2A0413; --accent-text:var(--rosa-300);
+  --accent-quiet:#2B1020; --support:#3FC9B6; --support-quiet:#0C2E2C; --focus:#3FC9B6;
+  --success:#3FBE83; --warning:#E2A03F; --danger:#F0736E;
+  --shadow-1:0 1px 2px rgba(0,0,0,.5); --shadow-2:0 12px 32px -14px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font-family:var(--font-body); font-size:16px; line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:var(--font-display); font-weight:600; letter-spacing:-.025em; text-wrap:balance; margin:0}
+p{margin:0}
+a{color:var(--accent-text)}
+:focus-visible{outline:2px solid var(--focus); outline-offset:2px; border-radius:var(--r-xs)}
+
+/* — каркас страницы — */
+.wrap{max-width:1180px; margin:0 auto; padding-inline:24px; padding-block:0}
+.masthead{border-bottom:1px solid var(--border); background:var(--bg)}
+.masthead__inner{display:flex; flex-wrap:wrap; gap:var(--s-4) var(--s-5); align-items:baseline; justify-content:space-between; padding-block:var(--s-5)}
+.mark{font-family:var(--font-display); font-weight:800; font-size:20px; letter-spacing:-.04em}
+.mark span{color:var(--accent-text)}
+.meta{font-family:var(--font-mono); font-size:12px; color:var(--fg-subtle); letter-spacing:.04em}
+
+.layout{display:grid; grid-template-columns:1fr; gap:var(--s-7)}
+@media (min-width:1024px){ .layout{grid-template-columns:190px minmax(0,1fr); gap:var(--s-8)} }
+
+.rail{display:none}
+@media (min-width:1024px){
+  .rail{display:block; position:sticky; top:calc(env(safe-area-inset-top,0px) + 24px); align-self:start; padding-block:var(--s-7)}
+}
+.rail__list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:var(--s-2)}
+.rail__list a{display:flex; gap:var(--s-3); font-family:var(--font-mono); font-size:12px; text-decoration:none; color:var(--fg-muted); padding-block:2px}
+.rail__list a:hover{color:var(--accent-text)}
+.rail__num{color:var(--fg-subtle)}
+
+.section{padding-block:var(--s-8); border-top:1px solid var(--border)}
+.section:first-of-type{border-top:0}
+.section__head{display:flex; flex-direction:column; gap:var(--s-2); margin-bottom:var(--s-6); max-width:66ch}
+.eyebrow{font-family:var(--font-mono); font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--fg-subtle)}
+.section__head h2{font-size:clamp(28px,4vw,38px); line-height:1.1}
+.lede{color:var(--fg-muted); max-width:62ch}
+
+/* — обзор — */
+.hero{padding-block:var(--s-8) var(--s-7)}
+.hero h1{font-size:clamp(40px,7.5vw,76px); line-height:.98; letter-spacing:-.04em; font-weight:800; max-width:14ch}
+.hero h1 em{font-style:normal; color:var(--accent-text)}
+.hero__sub{margin-top:var(--s-5); max-width:58ch; font-size:18px; color:var(--fg-muted)}
+.notice{margin-top:var(--s-6); border-left:3px solid var(--warning); background:var(--bg-inset); padding:var(--s-4) var(--s-5); max-width:70ch; font-size:14px; color:var(--fg-muted)}
+.notice b{color:var(--fg)}
+
+.factgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:var(--s-5); margin-top:var(--s-7); border-top:1px solid var(--border); padding-top:var(--s-5)}
+.fact__k{font-family:var(--font-display); font-weight:800; font-size:clamp(28px,4vw,40px); letter-spacing:-.04em; line-height:1; font-variant-numeric:tabular-nums}
+.fact__v{font-family:var(--font-mono); font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--fg-subtle); margin-top:var(--s-2)}
+
+/* — цвет — */
+.swatches{display:grid; grid-template-columns:repeat(auto-fit,minmax(168px,1fr)); gap:var(--s-4)}
+.swatch{border:1px solid var(--border); border-radius:var(--r-sm); overflow:hidden; background:var(--bg-raised)}
+.swatch__chip{height:84px}
+.swatch__body{padding:var(--s-3) var(--s-4) var(--s-4)}
+.swatch__name{font-weight:600; font-size:14px}
+.swatch__hex{font-family:var(--font-mono); font-size:12px; color:var(--fg-subtle); margin-top:2px}
+.swatch__use{font-size:13px; color:var(--fg-muted); margin-top:var(--s-2); line-height:1.45}
+
+.table{width:100%; border-collapse:collapse; font-size:14px}
+.table th,.table td{text-align:left; padding:var(--s-3) var(--s-4); border-bottom:1px solid var(--border); vertical-align:top}
+.table th{font-family:var(--font-mono); font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--fg-subtle); font-weight:500}
+.table td code, code{font-family:var(--font-mono); font-size:12.5px; color:var(--fg-muted)}
+.table td.num{font-variant-numeric:tabular-nums}
+.scroll-x{overflow-x:auto}
+
+.ratio{display:inline-flex; align-items:center; gap:6px; font-family:var(--font-mono); font-size:11px; padding:2px 8px; border-radius:var(--r-pill); background:var(--support-quiet); color:var(--support)}
+
+/* — типографика — */
+.specimen{display:flex; flex-direction:column; gap:var(--s-5)}
+.spec-row{display:grid; gap:var(--s-2); padding-bottom:var(--s-5); border-bottom:1px solid var(--border)}
+.spec-row:last-child{border-bottom:0; padding-bottom:0}
+.spec-tag{font-family:var(--font-mono); font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--fg-subtle)}
+.t-display{font-family:var(--font-display); font-weight:800; font-size:clamp(38px,6vw,64px); line-height:1; letter-spacing:-.04em}
+.t-h1{font-family:var(--font-display); font-weight:600; font-size:clamp(30px,4.4vw,40px); line-height:1.08; letter-spacing:-.03em}
+.t-h3{font-family:var(--font-display); font-weight:600; font-size:24px; line-height:1.2; letter-spacing:-.02em}
+.t-lead{font-size:18px; line-height:1.6; color:var(--fg-muted)}
+.t-body{font-size:16px; line-height:1.65}
+.t-small{font-size:14px; line-height:1.55; color:var(--fg-muted)}
+.t-label{font-family:var(--font-mono); font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--fg-subtle)}
+
+/* — кнопки — */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:var(--s-2);
+  font-family:var(--font-body); font-weight:600; font-size:15px; line-height:1;
+  height:44px; padding:0 20px; border-radius:var(--r-sm); border:1px solid transparent;
+  background:var(--accent); color:var(--accent-fg); text-decoration:none; cursor:pointer;
+  transition:background var(--dur-2) var(--ease), color var(--dur-2) var(--ease), border-color var(--dur-2) var(--ease), transform var(--dur-1) var(--ease);
+}
+.btn:hover{background:var(--accent-hover)}
+.btn:active{transform:translateY(1px)}
+.btn[disabled],.btn.is-disabled{background:var(--bg-inset); color:var(--fg-subtle); cursor:not-allowed; transform:none}
+.btn--secondary{background:transparent; color:var(--fg); border-color:var(--border-strong)}
+.btn--secondary:hover{background:transparent; border-color:var(--fg); }
+.btn--ghost{background:transparent; color:var(--fg-muted); border-color:transparent}
+.btn--ghost:hover{background:var(--bg-inset); color:var(--fg)}
+.btn--invert{background:var(--bg-invert); color:var(--fg-invert)}
+.btn--invert:hover{background:var(--fg-muted)}
+.btn--sm{height:36px; font-size:14px; padding:0 14px}
+.btn--lg{height:52px; font-size:16px; padding:0 26px}
+.btn--icon{width:44px; padding:0}
+.btn--block{display:flex; width:100%}
+.btn__arrow{transition:transform var(--dur-2) var(--ease)}
+.btn:hover .btn__arrow{transform:translateX(3px)}
+.btn.is-loading{pointer-events:none; color:transparent; position:relative}
+.btn.is-loading::after{
+  content:""; position:absolute; width:16px; height:16px; border-radius:50%;
+  border:2px solid rgba(255,255,255,.45); border-top-color:#fff; animation:spin 700ms linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.link-cta{display:inline-flex; align-items:center; gap:8px; font-weight:600; color:var(--accent-text); text-decoration:none; border-bottom:1px solid currentColor; padding-bottom:2px}
+.link-cta:hover{color:var(--fg)}
+
+.demo{border:1px solid var(--border); border-radius:var(--r-md); background:var(--bg-raised); padding:var(--s-5)}
+.demo + .demo{margin-top:var(--s-4)}
+.demo__title{font-family:var(--font-mono); font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--fg-subtle); margin-bottom:var(--s-4)}
+.row{display:flex; flex-wrap:wrap; gap:var(--s-3); align-items:center}
+.stack{display:flex; flex-direction:column; gap:var(--s-4)}
+.grid-2{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:var(--s-5)}
+.grid-3{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:var(--s-4)}
+
+/* — формы — */
+.field{display:flex; flex-direction:column; gap:6px}
+.field label{font-size:13px; font-weight:600}
+.field .hint{font-size:12.5px; color:var(--fg-subtle)}
+.input,.select,.textarea{
+  font:inherit; font-size:15px; color:var(--fg); background:var(--bg); width:100%;
+  border:1px solid var(--border-strong); border-radius:var(--r-sm); padding:11px 14px;
+  transition:border-color var(--dur-2) var(--ease), box-shadow var(--dur-2) var(--ease);
+}
+.input::placeholder,.textarea::placeholder{color:var(--fg-subtle)}
+.input:focus,.select:focus,.textarea:focus{outline:none; border-color:var(--focus); box-shadow:0 0 0 3px color-mix(in srgb, var(--focus) 22%, transparent)}
+.textarea{min-height:104px; resize:vertical}
+.field--error .input{border-color:var(--danger)}
+.error{font-size:12.5px; color:var(--danger)}
+.check{display:flex; gap:10px; align-items:flex-start; font-size:14px; color:var(--fg-muted)}
+.check input{margin-top:3px; accent-color:var(--accent)}
+
+/* — компоненты бренда — */
+.navbar{display:flex; align-items:center; justify-content:space-between; gap:var(--s-5); padding:var(--s-3) var(--s-4); border:1px solid var(--border); border-radius:var(--r-pill); background:var(--bg-raised)}
+.navbar__links{display:none; gap:var(--s-5); font-size:14px}
+@media (min-width:720px){ .navbar__links{display:flex} }
+.navbar__links a{color:var(--fg-muted); text-decoration:none}
+.navbar__links a:hover{color:var(--fg)}
+
+.pill{display:inline-flex; align-items:center; gap:6px; font-family:var(--font-mono); font-size:11px; letter-spacing:.07em; text-transform:uppercase; padding:5px 10px; border-radius:var(--r-pill); background:var(--accent-quiet); color:var(--accent-text)}
+.pill--support{background:var(--support-quiet); color:var(--support)}
+.pill--outline{background:transparent; color:var(--fg-muted); border:1px solid var(--border-strong)}
+.dot{width:6px; height:6px; border-radius:50%; background:currentColor}
+
+.phase{display:grid; grid-template-columns:auto 1fr; gap:var(--s-4); padding-block:var(--s-4); border-top:1px solid var(--border)}
+.phase:first-child{border-top:0}
+.phase__n{font-family:var(--font-mono); font-size:12px; color:var(--fg-subtle); padding-top:5px}
+.phase__t{font-family:var(--font-display); font-weight:600; font-size:20px; letter-spacing:-.02em}
+.phase__d{font-size:14.5px; color:var(--fg-muted); margin-top:2px}
+
+.service{border:1px solid var(--border); border-radius:var(--r-md); padding:var(--s-5); background:var(--bg-raised); display:flex; flex-direction:column; gap:var(--s-3); min-height:100%}
+.service h4{font-size:18px}
+.service p{font-size:14.5px; color:var(--fg-muted)}
+
+.quote{border-left:3px solid var(--accent); padding-left:var(--s-5)}
+.quote p{font-family:var(--font-display); font-size:clamp(20px,2.6vw,26px); line-height:1.3; letter-spacing:-.02em}
+.quote footer{margin-top:var(--s-4); font-size:13px; color:var(--fg-subtle)}
+
+.cta-band{background:var(--bg-invert); color:var(--fg-invert); border-radius:var(--r-md); padding:var(--s-7) var(--s-6); display:flex; flex-wrap:wrap; gap:var(--s-5); align-items:center; justify-content:space-between}
+.cta-band h3{font-size:clamp(24px,3.4vw,34px); line-height:1.1; max-width:18ch; color:var(--fg-invert)}
+.cta-band .btn{background:var(--accent); color:var(--accent-fg)}
+
+.footer-demo{display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:var(--s-5); border-top:1px solid var(--border); padding-top:var(--s-5); font-size:14px}
+.footer-demo h5{font-family:var(--font-mono); font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--fg-subtle); font-weight:500; margin:0 0 var(--s-3)}
+.footer-demo ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:6px}
+.footer-demo a{color:var(--fg-muted); text-decoration:none}
+.footer-demo a:hover{color:var(--accent-text)}
+
+/* — движение / доступность — */
+.motion-demo{width:100%; height:8px; border-radius:var(--r-pill); background:var(--bg-inset); overflow:hidden}
+.motion-demo i{display:block; height:100%; width:38%; background:var(--accent); animation:slide 2.4s var(--ease) infinite alternate}
+@keyframes slide{from{transform:translateX(0)} to{transform:translateX(163%)}}
+.do-dont{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:var(--s-5)}
+.do-dont ul,.rules{margin:0; padding-left:18px; display:flex; flex-direction:column; gap:8px; font-size:14.5px; color:var(--fg-muted)}
+.do-dont h4{font-size:15px; display:flex; align-items:center; gap:8px; margin-bottom:var(--s-3)}
+.tick{color:var(--success)} .cross{color:var(--danger)}
+
+/* — токены — */
+.code-block{background:var(--bg-inset); border:1px solid var(--border); border-radius:var(--r-sm); padding:var(--s-4); overflow-x:auto}
+.code-block pre{margin:0; font-family:var(--font-mono); font-size:12.5px; line-height:1.7; color:var(--fg-muted)}
+.toolbar{display:flex; justify-content:space-between; align-items:center; gap:var(--s-3); margin-bottom:var(--s-3)}
+
+.foot{border-top:1px solid var(--border); padding-block:var(--s-6) var(--s-8); font-size:13px; color:var(--fg-subtle); display:flex; flex-wrap:wrap; gap:var(--s-4); justify-content:space-between}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::after,*::before{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important}
+}
+</style>
+
+<header class="masthead">
+  <div class="wrap masthead__inner">
+    <div class="mark">We<span>Evolve</span>IT — UI/UX Kit</div>
+    <div class="row">
+      <span class="meta">v1.0 · 15.09.2026</span>
+      <button class="btn btn--secondary btn--sm" id="themeToggle" type="button">Тема: система</button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap layout">
+  <nav class="rail" aria-label="Разделы кита">
+    <ul class="rail__list">
+      <li><a href="#s00"><span class="rail__num">00</span> Обзор</a></li>
+      <li><a href="#s01"><span class="rail__num">01</span> Цвет</a></li>
+      <li><a href="#s02"><span class="rail__num">02</span> Типографика</a></li>
+      <li><a href="#s03"><span class="rail__num">03</span> Сетка и ритм</a></li>
+      <li><a href="#s04"><span class="rail__num">04</span> Кнопки</a></li>
+      <li><a href="#s05"><span class="rail__num">05</span> Формы</a></li>
+      <li><a href="#s06"><span class="rail__num">06</span> Компоненты</a></li>
+      <li><a href="#s07"><span class="rail__num">07</span> Движение</a></li>
+      <li><a href="#s08"><span class="rail__num">08</span> Доступность</a></li>
+      <li><a href="#s09"><span class="rail__num">09</span> Токены</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <!-- 00 -->
+    <section class="section hero" id="s00">
+      <p class="eyebrow">00 — Обзор</p>
+      <h1>Your tech partner. <em>Evolved.</em></h1>
+      <p class="hero__sub">Дизайн-кит для B2B-сайта AI-first консалтинга: цвет, шрифты, кнопки, формы и блоки страницы — собраны как один набор токенов, который можно перенести в Figma или в CSS-переменные проекта.</p>
+
+      <div class="notice">
+        <b>Важно про источник.</b> Прямой доступ к weevolveit.com из этой среды закрыт egress-прокси, поэтому визуальные решения ниже — не пиксельная копия сайта, а реконструкция: содержание (позиционирование, метод из пяти фаз, цифры, структура разделов) взято из поисковой выдачи, а палитра, шрифтовая пара и параметры компонентов подобраны под эту задачу. Пришлите 2–3 скриншота или CSS сайта — и токены будут откалиброваны один в один.
+      </div>
+
+      <div class="factgrid">
+        <div><div class="fact__k">15+</div><div class="fact__v">лет опыта</div></div>
+        <div><div class="fact__k">1 000+</div><div class="fact__v">проектов</div></div>
+        <div><div class="fact__k">17</div><div class="fact__v">стран</div></div>
+        <div><div class="fact__k">5.0</div><div class="fact__v">Google Trust</div></div>
+      </div>
+
+      <div class="grid-2" style="margin-top:var(--s-7)">
+        <div class="stack">
+          <p class="eyebrow">Тон бренда</p>
+          <p class="t-body">Уверенный, короткий, без маркетингового шума. Заголовки — утверждения в 3–6 слов со строчной буквы там, где это уместно («your tech partner. evolved.»). Глаголы действия в кнопках, никаких «Подробнее».</p>
+        </div>
+        <div class="stack">
+          <p class="eyebrow">Принцип системы</p>
+          <p class="t-body">Одна яркая точка на экран. Фон и текст держат нейтральную тёплую базу, весь контраст отдан акценту: кнопка, цифра, одно слово в заголовке. Рамки и тени тратятся по роли, а не на каждый блок.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 01 -->
+    <section class="section" id="s01">
+      <div class="section__head">
+        <p class="eyebrow">01 — Цвет</p>
+        <h2>Палитра: песок, глубокий тил, роза</h2>
+        <p class="lede">Пять рабочих цветов и три семантических. Нейтральные уведены в холодный тил — они не выглядят «системным серым», а поддерживают фирменный оттенок.</p>
+      </div>
+
+      <div class="swatches">
+        <div class="swatch"><div class="swatch__chip" style="background:#0A1F22"></div><div class="swatch__body"><div class="swatch__name">Ink Teal 900</div><div class="swatch__hex">#0A1F22</div><p class="swatch__use">Основной текст, тёмный фон, инвертированные CTA-полосы.</p></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:#F6F4EF"></div><div class="swatch__body"><div class="swatch__name">Sand 100</div><div class="swatch__hex">#F6F4EF</div><p class="swatch__use">Светлый фон страницы. Тёплый, чтобы белые карточки читались как слой.</p></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:#C10059"></div><div class="swatch__body"><div class="swatch__name">Rosa 600 · акцент</div><div class="swatch__hex">#C10059</div><p class="swatch__use">Заливка primary-кнопок и ссылок на светлом фоне. <span class="ratio">6.2:1 с белым</span></p></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:#FF4D94"></div><div class="swatch__body"><div class="swatch__name">Rosa 400 · тёмная тема</div><div class="swatch__hex">#FF4D94</div><p class="swatch__use">Тот же акцент на тёмном фоне: кнопка с почти-чёрным текстом, акцентные слова.</p></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:#0E9E8E"></div><div class="swatch__body"><div class="swatch__name">Agave 500 · поддержка</div><div class="swatch__hex">#0E9E8E</div><p class="swatch__use">Фокус-кольцо, теги технологий, иконки метода. Не конкурирует с розой.</p></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:#3E4A47"></div><div class="swatch__body"><div class="swatch__name">Grey 700</div><div class="swatch__hex">#3E4A47</div><p class="swatch__use">Вторичный текст, лиды абзацев. <span class="ratio">8.4:1 на песке</span></p></div></div>
+      </div>
+
+      <div class="scroll-x" style="margin-top:var(--s-6)">
+        <table class="table">
+          <caption class="eyebrow" style="text-align:left; padding-bottom:var(--s-3)">Семантика и токены</caption>
+          <thead><tr><th>Токен</th><th>Светлая</th><th>Тёмная</th><th>Где применяется</th></tr></thead>
+          <tbody>
+            <tr><td><code>--bg</code></td><td><code>#F6F4EF</code></td><td><code>#0A1F22</code></td><td>Фон страницы</td></tr>
+            <tr><td><code>--bg-raised</code></td><td><code>#FFFFFF</code></td><td><code>#0E2B2F</code></td><td>Карточки, попапы, шапка при скролле</td></tr>
+            <tr><td><code>--fg</code></td><td><code>#0A1F22</code></td><td><code>#EDF2F0</code></td><td>Заголовки и основной текст</td></tr>
+            <tr><td><code>--fg-muted</code></td><td><code>#3E4A47</code></td><td><code>#A8B7B4</code></td><td>Описания, подписи</td></tr>
+            <tr><td><code>--accent</code></td><td><code>#C10059</code></td><td><code>#FF4D94</code></td><td>Primary-кнопка, активные состояния</td></tr>
+            <tr><td><code>--border</code></td><td><code>#DCD8CF</code></td><td><code>#1E4046</code></td><td>Разделители, обводка карточек</td></tr>
+            <tr><td><code>--success</code></td><td><code>#1E8E5A</code></td><td><code>#3FBE83</code></td><td>Форма отправлена, статус «в работе»</td></tr>
+            <tr><td><code>--warning</code></td><td><code>#B5730B</code></td><td><code>#E2A03F</code></td><td>Предупреждения, черновики</td></tr>
+            <tr><td><code>--danger</code></td><td><code>#C62828</code></td><td><code>#F0736E</code></td><td>Ошибки валидации</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="t-small" style="margin-top:var(--s-4)">Правило пропорции: 60% нейтрального фона, 30% текста и границ, 10% акцента. Роза не используется как фон больших блоков — только кнопки, подчёркивания, одно слово в заголовке и графика.</p>
+    </section>
+
+    <!-- 02 -->
+    <section class="section" id="s02">
+      <div class="section__head">
+        <p class="eyebrow">02 — Типографика</p>
+        <h2>Bricolage Grotesque + Instrument Sans</h2>
+        <p class="lede">Гротеск с характером — только на заголовки и цифры; нейтральный санс — на текст; моноширинный — на метки, теги и числовые спецификации.</p>
+      </div>
+
+      <div class="demo">
+        <p class="demo__title">Образцы</p>
+        <div class="specimen">
+          <div class="spec-row"><span class="spec-tag">Display · Bricolage 800 · clamp(40–76px) / 0.98 / −0.04em</span><div class="t-display">Evolve, don't upgrade</div></div>
+          <div class="spec-row"><span class="spec-tag">H1 · Bricolage 600 · clamp(30–40px) / 1.08 / −0.03em</span><div class="t-h1">An AI-first agency and your end-to-end tech partner</div></div>
+          <div class="spec-row"><span class="spec-tag">H3 · Bricolage 600 · 24px / 1.2</span><div class="t-h3">Discover — где бизнес теряет время</div></div>
+          <div class="spec-row"><span class="spec-tag">Lead · Instrument Sans 400 · 18px / 1.6</span><p class="t-lead">Пять фаз — Discover, Diagnose, Design, Deliver, Evolve — меняют то, как бизнес работает на технологиях, а не просто добавляют ещё один инструмент.</p></div>
+          <div class="spec-row"><span class="spec-tag">Body · Instrument Sans 400 · 16px / 1.65 · строка ≤ 65 знаков</span><p class="t-body">Базовый размер текста — 16px, он же минимальный на сайте. Длина строки ограничена 62–68 знаками: это главный инструмент читабельности на лендинге, важнее любого декора.</p></div>
+          <div class="spec-row"><span class="spec-tag">Small · 14px / 1.55</span><p class="t-small">Подписи под карточками, сноски, юридические строки, подпись под формой.</p></div>
+          <div class="spec-row"><span class="spec-tag">Label · JetBrains Mono 500 · 12px · +0.1em · UPPERCASE</span><div class="t-label">Method · Phase 03</div></div>
+        </div>
+      </div>
+
+      <div class="scroll-x" style="margin-top:var(--s-5)">
+        <table class="table">
+          <thead><tr><th>Роль</th><th>Гарнитура</th><th>Размер</th><th>Интерлиньяж</th><th>Трекинг</th></tr></thead>
+          <tbody>
+            <tr><td>Display</td><td>Bricolage Grotesque 800</td><td class="num">40 → 76px</td><td class="num">0.98</td><td class="num">−0.04em</td></tr>
+            <tr><td>H1</td><td>Bricolage Grotesque 600</td><td class="num">30 → 40px</td><td class="num">1.08</td><td class="num">−0.03em</td></tr>
+            <tr><td>H2</td><td>Bricolage Grotesque 600</td><td class="num">28 → 38px</td><td class="num">1.1</td><td class="num">−0.025em</td></tr>
+            <tr><td>H3</td><td>Bricolage Grotesque 600</td><td class="num">24px</td><td class="num">1.2</td><td class="num">−0.02em</td></tr>
+            <tr><td>H4</td><td>Bricolage Grotesque 600</td><td class="num">18–20px</td><td class="num">1.3</td><td class="num">−0.01em</td></tr>
+            <tr><td>Lead</td><td>Instrument Sans 400</td><td class="num">18px</td><td class="num">1.6</td><td class="num">0</td></tr>
+            <tr><td>Body</td><td>Instrument Sans 400</td><td class="num">16px</td><td class="num">1.65</td><td class="num">0</td></tr>
+            <tr><td>Small</td><td>Instrument Sans 400</td><td class="num">14px</td><td class="num">1.55</td><td class="num">0</td></tr>
+            <tr><td>Label / Mono</td><td>JetBrains Mono 500</td><td class="num">11–12px</td><td class="num">1.4</td><td class="num">+0.09em</td></tr>
+            <tr><td>Кнопка</td><td>Instrument Sans 600</td><td class="num">14 / 15 / 16px</td><td class="num">1</td><td class="num">0</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="t-small" style="margin-top:var(--s-4)">Цифры в таблицах и статистике — <code>font-variant-numeric: tabular-nums</code>. Заголовки — <code>text-wrap: balance</code>, чтобы не оставалось висячего слова.</p>
+    </section>
+
+    <!-- 03 -->
+    <section class="section" id="s03">
+      <div class="section__head">
+        <p class="eyebrow">03 — Сетка и ритм</p>
+        <h2>Шаг 4px, контейнер 1180</h2>
+      </div>
+      <div class="grid-2">
+        <div class="demo">
+          <p class="demo__title">Отступы</p>
+          <table class="table">
+            <tbody>
+              <tr><td><code>--s-1</code> 4px</td><td>внутри мелких чипов</td></tr>
+              <tr><td><code>--s-2</code> 8px</td><td>иконка ↔ текст</td></tr>
+              <tr><td><code>--s-3</code> 12px</td><td>поля кнопок, gap в строке</td></tr>
+              <tr><td><code>--s-4</code> 16px</td><td>внутренний отступ карточки (моб.)</td></tr>
+              <tr><td><code>--s-5</code> 24px</td><td>карточка, боковые поля страницы</td></tr>
+              <tr><td><code>--s-6</code> 32px</td><td>между блоками в секции</td></tr>
+              <tr><td><code>--s-7</code> 48px</td><td>секция на мобильном</td></tr>
+              <tr><td><code>--s-8</code> 64px</td><td>секция на десктопе</td></tr>
+              <tr><td><code>--s-9</code> 96px</td><td>крупные разделы лендинга</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="stack">
+          <div class="demo">
+            <p class="demo__title">Контейнер и брейкпоинты</p>
+            <table class="table">
+              <tbody>
+                <tr><td class="num">≤ 479</td><td>1 колонка, поля 16px</td></tr>
+                <tr><td class="num">480–767</td><td>1 колонка, поля 24px</td></tr>
+                <tr><td class="num">768–1023</td><td>2 колонки, 12-колоночная сетка</td></tr>
+                <tr><td class="num">≥ 1024</td><td>боковой индекс + контент</td></tr>
+                <tr><td class="num">max 1180</td><td>ширина контейнера, gutter 24px</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="demo">
+            <p class="demo__title">Радиусы и тени</p>
+            <div class="row">
+              <div style="width:78px;height:56px;background:var(--bg-inset);border:1px solid var(--border);border-radius:2px"></div>
+              <div style="width:78px;height:56px;background:var(--bg-inset);border:1px solid var(--border);border-radius:6px"></div>
+              <div style="width:78px;height:56px;background:var(--bg-inset);border:1px solid var(--border);border-radius:10px"></div>
+              <div style="width:78px;height:56px;background:var(--bg-raised);border:1px solid var(--border);border-radius:10px;box-shadow:var(--shadow-2)"></div>
+            </div>
+            <p class="t-small" style="margin-top:var(--s-3)"><code>2px</code> — инпуты и мелкие метки, <code>6px</code> — кнопки, <code>10px</code> — карточки и модалки, <code>999px</code> — пилюли и круглая навигация. Тень только там, где элемент действительно поверх: выпадающее меню, sticky-панель, модалка.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 -->
+    <section class="section" id="s04">
+      <div class="section__head">
+        <p class="eyebrow">04 — Кнопки</p>
+        <h2>Четыре варианта, три размера, шесть состояний</h2>
+        <p class="lede">На экране одна primary-кнопка. Всё остальное — secondary, ghost или текстовая ссылка со стрелкой.</p>
+      </div>
+
+      <div class="demo">
+        <p class="demo__title">Варианты</p>
+        <div class="row">
+          <button class="btn" type="button">Let's talk <span class="btn__arrow" aria-hidden="true">→</span></button>
+          <button class="btn btn--secondary" type="button">View our work</button>
+          <button class="btn btn--ghost" type="button">Download deck</button>
+          <button class="btn btn--invert" type="button">Book a call</button>
+          <a class="link-cta" href="#s04">See the method <span aria-hidden="true">→</span></a>
+        </div>
+        <p class="t-small" style="margin-top:var(--s-4)">Primary — единственное целевое действие блока («Let's talk»). Secondary — альтернативный путь. Ghost — третьестепенное действие внутри карточки. Invert — primary на светлой полосе внутри тёмной секции и наоборот.</p>
+      </div>
+
+      <div class="demo">
+        <p class="demo__title">Размеры · 36 / 44 / 52px</p>
+        <div class="row">
+          <button class="btn btn--sm" type="button">Small</button>
+          <button class="btn" type="button">Medium</button>
+          <button class="btn btn--lg" type="button">Large</button>
+          <button class="btn btn--icon" type="button" aria-label="Следующий слайд"><span aria-hidden="true">→</span></button>
+        </div>
+        <p class="t-small" style="margin-top:var(--s-4)">44px — по умолчанию (минимальная зона касания). 52px — hero и финальный CTA. 36px — шапка, фильтры, таблицы. Горизонтальные поля: 14 / 20 / 26px.</p>
+      </div>
+
+      <div class="demo">
+        <p class="demo__title">Состояния</p>
+        <div class="row">
+          <button class="btn" type="button">Default</button>
+          <button class="btn" type="button" style="background:var(--accent-hover)">Hover</button>
+          <button class="btn" type="button" style="background:var(--accent-hover); transform:translateY(1px)">Active</button>
+          <button class="btn" type="button" style="outline:2px solid var(--focus); outline-offset:2px">Focus</button>
+          <button class="btn is-loading" type="button">Loading</button>
+          <button class="btn" type="button" disabled>Disabled</button>
+        </div>
+        <div class="scroll-x" style="margin-top:var(--s-5)">
+          <table class="table">
+            <thead><tr><th>Состояние</th><th>Что меняется</th><th>Длительность</th></tr></thead>
+            <tbody>
+              <tr><td>Hover</td><td>фон → <code>--accent-hover</code>, стрелка сдвигается на 3px</td><td class="num">200ms</td></tr>
+              <tr><td>Active</td><td><code>translateY(1px)</code>, без смены цвета</td><td class="num">120ms</td></tr>
+              <tr><td>Focus</td><td>кольцо 2px <code>--focus</code>, отступ 2px — виден и на тёмном, и на светлом</td><td class="num">—</td></tr>
+              <tr><td>Loading</td><td>текст скрыт, спиннер 16px, клики заблокированы</td><td class="num">700ms / оборот</td></tr>
+              <tr><td>Disabled</td><td>фон <code>--bg-inset</code>, текст <code>--fg-subtle</code>, cursor not-allowed</td><td class="num">—</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="demo">
+        <p class="demo__title">Тексты кнопок</p>
+        <div class="do-dont">
+          <div><h4><span class="tick" aria-hidden="true">✓</span> Говорим, что произойдёт</h4><ul><li>Let's talk</li><li>Book a 30-min call</li><li>Get the audit</li><li>Send request</li></ul></div>
+          <div><h4><span class="cross" aria-hidden="true">✕</span> Не пишем</h4><ul><li>Подробнее / Learn more</li><li>Отправить (без объекта)</li><li>Click here</li><li>Submit</li></ul></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 -->
+    <section class="section" id="s05">
+      <div class="section__head">
+        <p class="eyebrow">05 — Формы</p>
+        <h2>Лид-форма — главный конверсионный узел</h2>
+        <p class="lede">Пять полей максимум, подпись под кнопкой вместо длинного дисклеймера, ошибка — рядом с полем и объясняет, что сделать.</p>
+      </div>
+      <div class="grid-2">
+        <form class="demo stack" onsubmit="return false">
+          <p class="demo__title">Start a project</p>
+          <div class="field">
+            <label for="f-name">Имя и компания</label>
+            <input class="input" id="f-name" name="name" type="text" placeholder="Ana Reyes · Grupo Lumen">
+          </div>
+          <div class="field field--error">
+            <label for="f-mail">Рабочая почта</label>
+            <input class="input" id="f-mail" name="email" type="email" value="ana@" aria-describedby="f-mail-err">
+            <span class="error" id="f-mail-err">Похоже, адрес неполный — нужен формат name@company.com</span>
+          </div>
+          <div class="field">
+            <label for="f-need">Что нужно</label>
+            <select class="select" id="f-need" name="need">
+              <option>AI и автоматизация процессов</option>
+              <option>IT-стратегия и трансформация</option>
+              <option>Сайт и веб-разработка</option>
+              <option>E-commerce</option>
+              <option>Managed services</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="f-msg">Коротко о задаче</label>
+            <textarea class="textarea" id="f-msg" name="message" placeholder="Где сейчас теряете время и деньги"></textarea>
+            <span class="hint">2–3 предложения достаточно — детали уточним на звонке.</span>
+          </div>
+          <label class="check" for="f-ok"><input type="checkbox" id="f-ok" name="consent"> Согласен на обработку данных для ответа на запрос</label>
+          <button class="btn btn--block" type="submit">Send request <span class="btn__arrow" aria-hidden="true">→</span></button>
+          <p class="hint" style="text-align:center">Отвечаем в течение одного рабочего дня.</p>
+        </form>
+
+        <div class="stack">
+          <div class="demo">
+            <p class="demo__title">Состояния поля</p>
+            <div class="stack">
+              <div class="field"><label for="d1">Default</label><input class="input" id="d1" placeholder="Placeholder — пример, не подсказка"></div>
+              <div class="field"><label for="d2">Focus</label><input class="input" id="d2" value="ana@grupolumen.mx" style="border-color:var(--focus); box-shadow:0 0 0 3px color-mix(in srgb, var(--focus) 22%, transparent)"></div>
+              <div class="field"><label for="d3">Disabled</label><input class="input" id="d3" value="Заполняется автоматически" disabled style="background:var(--bg-inset); color:var(--fg-subtle)"></div>
+            </div>
+          </div>
+          <div class="demo">
+            <p class="demo__title">Правила</p>
+            <ul class="rules">
+              <li>Лейбл всегда сверху и всегда видим — плейсхолдер не заменяет лейбл.</li>
+              <li>Высота контрола 44px, как у кнопки: строка формы выглядит одним объектом.</li>
+              <li>Валидация — после ухода из поля, а не на каждом символе.</li>
+              <li>Ошибка описывает действие: «нужен формат name@company.com», а не «неверное значение».</li>
+              <li>Успех — та же форма превращается в сообщение со следующим шагом, а не алерт.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 -->
+    <section class="section" id="s06">
+      <div class="section__head">
+        <p class="eyebrow">06 — Компоненты</p>
+        <h2>Блоки страницы</h2>
+        <p class="lede">Набор, из которого собирается лендинг: навигация, метки, метод из пяти фаз, карточки услуг, цитата клиента, финальный CTA и подвал.</p>
+      </div>
+
+      <div class="demo">
+        <p class="demo__title">Навигация · sticky, 64px, фон появляется после 40px скролла</p>
+        <div class="navbar">
+          <span class="mark">We<span>Evolve</span>IT</span>
+          <div class="navbar__links"><a href="#s06">Services</a><a href="#s06">Method</a><a href="#s06">Work</a><a href="#s06">About</a></div>
+          <button class="btn btn--sm" type="button">Let's talk</button>
+        </div>
+      </div>
+
+      <div class="demo">
+        <p class="demo__title">Метки и статусы</p>
+        <div class="row">
+          <span class="pill"><span class="dot" aria-hidden="true"></span> AI-first</span>
+          <span class="pill pill--support">Monterrey · Dubai</span>
+          <span class="pill pill--outline">17 countries</span>
+          <span class="pill" style="background:var(--support-quiet); color:var(--success)">Available for Q4</span>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="demo">
+          <p class="demo__title">Метод — пять фаз</p>
+          <div>
+            <div class="phase"><span class="phase__n">01</span><div><div class="phase__t">Discover</div><p class="phase__d">Смотрим, как бизнес работает сегодня: процессы, данные, узкие места.</p></div></div>
+            <div class="phase"><span class="phase__n">02</span><div><div class="phase__t">Diagnose</div><p class="phase__d">Считаем, где теряются деньги и время, и что даёт эффект первым.</p></div></div>
+            <div class="phase"><span class="phase__n">03</span><div><div class="phase__t">Design</div><p class="phase__d">Проектируем решение и архитектуру — с AI там, где он реально нужен.</p></div></div>
+            <div class="phase"><span class="phase__n">04</span><div><div class="phase__t">Deliver</div><p class="phase__d">Внедряем, интегрируем, обучаем команду работать по-новому.</p></div></div>
+            <div class="phase"><span class="phase__n">05</span><div><div class="phase__t">Evolve</div><p class="phase__d">Ведём систему дальше: метрики, доработки, следующий виток.</p></div></div>
+          </div>
+          <p class="t-small" style="margin-top:var(--s-4)">Нумерация здесь не декор: это реальная последовательность, и порядок несёт смысл. В блоках, где порядок не важен (услуги, преимущества), нумерации нет.</p>
+        </div>
+
+        <div class="stack">
+          <div class="demo">
+            <p class="demo__title">Карточка услуги</p>
+            <div class="grid-3">
+              <article class="service"><span class="pill pill--support">AI</span><h4>AI &amp; automation</h4><p>Автоматизация процессов и AI-агенты внутри существующих систем.</p><a class="link-cta" href="#s06">Explore <span aria-hidden="true">→</span></a></article>
+              <article class="service"><span class="pill pill--outline">Strategy</span><h4>IT strategy</h4><p>Аудит, дорожная карта, приоритеты трансформации на 12 месяцев.</p><a class="link-cta" href="#s06">Explore <span aria-hidden="true">→</span></a></article>
+            </div>
+          </div>
+          <div class="demo">
+            <p class="demo__title">Цитата клиента</p>
+            <blockquote class="quote"><p>«Они не продали нам инструмент — они переписали то, как у нас устроен день.»</p><footer>COO, производственная компания · Monterrey</footer></blockquote>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo">
+        <p class="demo__title">Финальный CTA</p>
+        <div class="cta-band">
+          <h3>Ready to evolve how your business runs?</h3>
+          <div class="row"><button class="btn btn--lg" type="button">Let's talk <span class="btn__arrow" aria-hidden="true">→</span></button><span class="meta">Ответ за 1 рабочий день</span></div>
+        </div>
+      </div>
+
+      <div class="demo">
+        <p class="demo__title">Подвал</p>
+        <div class="footer-demo">
+          <div><h5>Services</h5><ul><li><a href="#s06">AI &amp; automation</a></li><li><a href="#s06">IT strategy</a></li><li><a href="#s06">Web &amp; e-commerce</a></li><li><a href="#s06">Managed services</a></li></ul></div>
+          <div><h5>Company</h5><ul><li><a href="#s06">Method</a></li><li><a href="#s06">Work</a></li><li><a href="#s06">Careers</a></li></ul></div>
+          <div><h5>Offices</h5><ul><li>Monterrey, MX</li><li>Dubai, UAE</li></ul></div>
+          <div><h5>Contact</h5><ul><li><a href="#s06">hello@weevolveit.com</a></li><li><a href="#s06">LinkedIn</a></li></ul></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 -->
+    <section class="section" id="s07">
+      <div class="section__head">
+        <p class="eyebrow">07 — Движение</p>
+        <h2>Быстро, коротко, по делу</h2>
+      </div>
+      <div class="grid-2">
+        <div class="demo">
+          <p class="demo__title">Токены</p>
+          <table class="table">
+            <tbody>
+              <tr><td><code>--dur-1</code> 120ms</td><td>нажатие, смена цвета иконки</td></tr>
+              <tr><td><code>--dur-2</code> 200ms</td><td>hover кнопок и ссылок</td></tr>
+              <tr><td><code>--dur-3</code> 320ms</td><td>раскрытие меню, аккордеон</td></tr>
+              <tr><td><code>--ease</code></td><td><code>cubic-bezier(.2,.7,.2,1)</code></td></tr>
+            </tbody>
+          </table>
+          <div class="motion-demo" style="margin-top:var(--s-4)"><i></i></div>
+        </div>
+        <div class="demo">
+          <p class="demo__title">Правила</p>
+          <ul class="rules">
+            <li>Появление секции — максимум сдвиг на 12px и прозрачность 0.6 → 1, и только один раз.</li>
+            <li>Контент виден без скролла-триггеров: анимация — улучшение, а не условие показа.</li>
+            <li>Параллакс и бесконечные фоновые эффекты — не используем: они дороже, чем добавляют.</li>
+            <li><code>prefers-reduced-motion: reduce</code> отключает все переходы — это обязательный блок в CSS.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08 -->
+    <section class="section" id="s08">
+      <div class="section__head">
+        <p class="eyebrow">08 — Доступность</p>
+        <h2>Чек-лист перед релизом</h2>
+      </div>
+      <div class="do-dont">
+        <div class="demo">
+          <h4><span class="tick" aria-hidden="true">✓</span> Обязательно</h4>
+          <ul>
+            <li>Контраст текста ≥ 4.5:1, крупного и элементов интерфейса ≥ 3:1.</li>
+            <li>Видимый фокус на всех интерактивных элементах — кольцо <code>--focus</code>, не <code>outline:none</code>.</li>
+            <li>Зона касания ≥ 44×44px, включая иконочные кнопки.</li>
+            <li>Иконка без текста получает <code>aria-label</code>; декоративная — <code>aria-hidden="true"</code>.</li>
+            <li>Порядок заголовков H1 → H2 → H3 без пропусков, один H1 на страницу.</li>
+            <li>Формы: <code>label for</code> + <code>aria-describedby</code> для ошибки и подсказки.</li>
+          </ul>
+        </div>
+        <div class="demo">
+          <h4><span class="cross" aria-hidden="true">✕</span> Частые ошибки</h4>
+          <ul>
+            <li>Светло-серый текст 13px на песочном фоне — не проходит контраст.</li>
+            <li>Розовая ссылка на тёмном фоне в оттенке Rosa 600 — на тёмном нужен Rosa 300.</li>
+            <li>Плейсхолдер вместо лейбла: исчезает при вводе.</li>
+            <li>Кнопка, сделанная из <code>div</code> — не фокусируется и не работает с клавиатуры.</li>
+            <li>Текст внутри картинки-баннера: не читается скринридером и не масштабируется.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 09 -->
+    <section class="section" id="s09">
+      <div class="section__head">
+        <p class="eyebrow">09 — Токены</p>
+        <h2>Готовый CSS</h2>
+        <p class="lede">Скопируйте блок в проект — компоненты выше построены ровно на этих переменных.</p>
+      </div>
+      <div class="demo">
+        <div class="toolbar">
+          <span class="demo__title" style="margin:0">tokens.css</span>
+          <button class="btn btn--secondary btn--sm" type="button" id="copyBtn" data-target="tokens">Скопировать</button>
+        </div>
+        <div class="code-block"><pre id="tokens">:root{
+  /* цвет */
+  --ink-900:#0A1F22;  --ink-800:#0E2B2F;  --ink-600:#1E4046;
+  --sand-100:#F6F4EF; --sand-200:#ECE8E0; --sand-300:#DCD8CF; --sand-400:#C5C0B6;
+  --rosa-300:#FF7AAE; --rosa-400:#FF4D94; --rosa-500:#E0006C;
+  --rosa-600:#C10059; --rosa-700:#A3004B; --rosa-50:#FFE6F0;
+  --agave-500:#0E9E8E; --agave-600:#0B7E72; --agave-50:#DFF3F0;
+  --grey-500:#7C837F;  --grey-700:#3E4A47;
+
+  /* семантика — светлая тема */
+  --bg:var(--sand-100); --bg-raised:#FFFFFF; --bg-inset:var(--sand-200);
+  --fg:var(--ink-900); --fg-muted:var(--grey-700); --fg-subtle:var(--grey-500);
+  --border:var(--sand-300); --border-strong:var(--sand-400);
+  --accent:var(--rosa-600); --accent-hover:var(--rosa-700); --accent-fg:#FFFFFF;
+  --accent-text:var(--rosa-600); --focus:var(--agave-500);
+  --success:#1E8E5A; --warning:#B5730B; --danger:#C62828;
+
+  /* ритм */
+  --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:24px;
+  --s-6:32px; --s-7:48px; --s-8:64px; --s-9:96px;
+  --r-xs:2px; --r-sm:6px; --r-md:10px; --r-pill:999px;
+
+  /* движение */
+  --dur-1:120ms; --dur-2:200ms; --dur-3:320ms;
+  --ease:cubic-bezier(.2,.7,.2,1);
+
+  /* шрифты */
+  --font-display:"Bricolage Grotesque",Arial,sans-serif;
+  --font-body:"Instrument Sans",Arial,sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,monospace;
+}
+:root[data-theme="dark"]{
+  --bg:var(--ink-900); --bg-raised:var(--ink-800); --bg-inset:#08191B;
+  --fg:#EDF2F0; --fg-muted:#A8B7B4; --fg-subtle:#7E908D;
+  --border:var(--ink-600); --border-strong:#2C555C;
+  --accent:var(--rosa-400); --accent-hover:var(--rosa-300); --accent-fg:#2A0413;
+  --accent-text:var(--rosa-300); --focus:#3FC9B6;
+  --success:#3FBE83; --warning:#E2A03F; --danger:#F0736E;
+}</pre></div>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <span>Evolve Kit · реконструкция дизайн-системы по материалам о weevolveit.com</span>
+      <span class="meta">Bricolage Grotesque · Instrument Sans · JetBrains Mono</span>
+    </footer>
+  </main>
+</div>
+
+<script>
+(function(){
+  var root=document.documentElement, btn=document.getElementById('themeToggle');
+  var order=['system','light','dark'], names={system:'система',light:'светлая',dark:'тёмная'}, i=0;
+  try{ var saved=localStorage.getItem('evolvekit-theme'); if(saved && order.indexOf(saved)>-1){ i=order.indexOf(saved); apply(); } }catch(e){}
+  function apply(){
+    var mode=order[i];
+    if(mode==='system'){ root.removeAttribute('data-theme'); } else { root.setAttribute('data-theme',mode); }
+    btn.textContent='Тема: '+names[mode];
+    try{ localStorage.setItem('evolvekit-theme',mode); }catch(e){}
+  }
+  btn.addEventListener('click',function(){ i=(i+1)%order.length; apply(); });
+
+  var copy=document.getElementById('copyBtn');
+  copy.addEventListener('click',function(){
+    var text=document.getElementById(copy.dataset.target).textContent;
+    var done=function(){ copy.textContent='Скопировано'; setTimeout(function(){ copy.textContent='Скопировать'; },1600); };
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done,function(){ copy.textContent='Выделите и скопируйте вручную'; }); }
+    else { copy.textContent='Выделите и скопируйте вручную'; }
+  });
+})();
+</script>
