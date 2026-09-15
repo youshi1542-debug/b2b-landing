@@ -23,18 +23,18 @@
   --accent:var(--rosa-600); --accent-hover:var(--rosa-700); --accent-fg:#FFFFFF; --accent-text:var(--rosa-600);
   --focus:var(--agave-500);
 
-  /* сцена героя — «дневная студия» */
-  --stage:#EAE6DE;
-  --stage-deep:#D8D2C6;
-  --stage-line:rgba(10,31,34,.13);
-  --stage-glow:rgba(226,160,63,.22);
-  --stage-fg:var(--ink-900);
-  --stage-fg-muted:rgba(10,31,34,.66);
-  --stage-scrim:linear-gradient(to top, rgba(246,244,239,.97) 0%, rgba(246,244,239,.78) 34%, rgba(246,244,239,.12) 72%, rgba(246,244,239,0) 100%);
-  --stage-hairline:rgba(10,31,34,.16);
-  --stage-tile:rgba(255,255,255,.72);
-  --stage-tile-line:rgba(10,31,34,.2);
-  --stage-block:var(--ink-900);
+  /* сцена героя — всегда ночная: поверх видео */
+  --stage:#0C2429;
+  --stage-deep:#05100F;
+  --stage-line:rgba(226,160,63,.24);
+  --stage-glow:rgba(226,160,63,.3);
+  --stage-fg:#F4F8F6;
+  --stage-fg-muted:rgba(244,248,246,.7);
+  --stage-scrim:linear-gradient(to top, rgba(5,16,15,.96) 0%, rgba(5,16,15,.8) 34%, rgba(5,16,15,.16) 72%, rgba(5,16,15,0) 100%);
+  --stage-hairline:rgba(244,248,246,.22);
+  --stage-tile:rgba(244,248,246,.1);
+  --stage-tile-line:rgba(244,248,246,.28);
+  --stage-block:#0A1F22;
   --stage-block-fg:#F3F6F4;
 
   --s-2:8px; --s-3:12px; --s-4:16px; --s-5:24px; --s-6:32px; --s-7:48px; --s-8:64px;
@@ -119,7 +119,8 @@ a{color:inherit; text-decoration:none}
 
 /* ——— сцена ——— */
 .hero{position:relative; min-height:100%; display:flex; flex-direction:column; justify-content:flex-end; overflow:hidden; isolation:isolate}
-.hero__media{position:absolute; inset:0; z-index:-2; background:
+.hero__video{position:absolute; inset:0; z-index:-2; width:100%; height:100%; object-fit:cover; opacity:.94}
+.hero__media{position:absolute; inset:0; z-index:-3; background:
   radial-gradient(64% 42% at 50% 78%, var(--stage-glow) 0%, transparent 70%),
   radial-gradient(120% 86% at 50% 16%, var(--stage) 0%, var(--stage-deep) 72%);
 }
@@ -143,11 +144,6 @@ a{color:inherit; text-decoration:none}
   mix-blend-mode:soft-light; opacity:.55;
 }
 .hero__scrim{position:absolute; inset:0; z-index:-1; background:var(--stage-scrim)}
-.media-note{
-  position:absolute; top:calc(env(safe-area-inset-top,0px) + 96px); left:clamp(16px,3.2vw,40px); z-index:5;
-  font-family:var(--font-mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase;
-  color:var(--stage-fg-muted); border:1px dashed var(--stage-hairline); border-radius:var(--r-xs); padding:5px 9px;
-}
 
 /* ——— контент героя ——— */
 .hero__inner{
@@ -249,9 +245,11 @@ a{color:inherit; text-decoration:none}
 
 <main id="top">
   <section class="hero">
+    <video class="hero__video" autoplay muted loop playsinline preload="auto" poster="media/hero-poster.jpg" aria-hidden="true" tabindex="-1">
+      <source src="media/hero-loop.webm" type="video/webm">
+    </video>
     <div class="hero__media" aria-hidden="true"></div>
     <div class="hero__scrim" aria-hidden="true"></div>
-    <p class="media-note">Слот под фоновое видео 1920×1080</p>
 
     <div class="hero__inner">
       <p class="kicker">
@@ -286,9 +284,9 @@ a{color:inherit; text-decoration:none}
         <div class="spec__item"><h3>Кикер со звёздами</h3><p>Instrument Sans italic 14px; звёзды — акцент <code>--accent-text</code>, единственное цветное пятно сверху.</p></div>
         <div class="spec__item"><h3>Подзаголовок</h3><p>14.5px / 1.65, ширина ≤ 56 знаков, цвет <code>--stage-fg-muted</code>.</p></div>
         <div class="spec__item"><h3>Угловые CTA</h3><p>Плитка 56×56 со стрелкой + блок-лейбл: слева нейтральный <code>--stage-block</code>, справа акцентный <code>--accent</code>.</p></div>
-        <div class="spec__item"><h3>Сцена</h3><p>Панельная стена, тёплое свечение и зерно собраны на CSS-градиентах: готовый слот под видео без внешних файлов.</p></div>
+        <div class="spec__item"><h3>Фон</h3><p>Зацикленный ролик 1280×720, 12 с, WebM 466 КБ: панельная стена, дыхание лампы, световая волна и пыль в луче. <code>object-fit:cover</code>.</p></div>
         <div class="spec__item"><h3>Навигация</h3><p>12.5px uppercase, +0.06em; активный пункт — <code>--stage-fg</code>, остальные приглушены; «Client portal» отделён волоском.</p></div>
-        <div class="spec__item"><h3>Две темы</h3><p>Ночная студия и дневная — один набор <code>--stage-*</code> токенов, переключатель рядом.</p></div>
+        <div class="spec__item"><h3>Подстраховка</h3><p>Poster-кадр держит экран до первого кадра, под ним CSS-сцена на градиентах — если видео не загрузилось, первый экран выглядит так же.</p></div>
         <div class="spec__item"><h3>Движение</h3><p>Ховеры 200ms на <code>--ease</code>, сдвиг стрелки на 2px, индикатор прокрутки; всё выключается при <code>reduced-motion</code>.</p></div>
       </div>
       <div class="spec__foot">
