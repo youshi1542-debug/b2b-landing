@@ -8,38 +8,41 @@
    Токены: цвет / тип / ритм / движение
    ============================================================ */
 :root{
-  /* — сырые значения палитры — */
-  --ink-900:#0A1F22; --ink-800:#0E2B2F; --ink-700:#14383D; --ink-600:#1E4046;
-  --sand-50:#FBFAF7; --sand-100:#F6F4EF; --sand-200:#ECE8E0; --sand-300:#DCD8CF; --sand-400:#C5C0B6;
-  --rosa-300:#FF7AAE; --rosa-400:#FF4D94; --rosa-500:#E0006C; --rosa-600:#C10059; --rosa-700:#A3004B; --rosa-50:#FFE6F0;
-  --agave-500:#0E9E8E; --agave-600:#0B7E72; --agave-50:#DFF3F0;
-  --grey-500:#7C837F; --grey-700:#3E4A47;
-  --green-600:#1E8E5A; --amber-700:#B5730B; --red-600:#C62828;
+  color-scheme:dark;
+  /* — графит — */
+  --gr-950:#0E1013; --gr-900:#14171A; --gr-850:#1C1F23; --gr-800:#23272C;
+  --gr-700:#2C3137; --gr-600:#3A4046; --gr-500:#4E555D; --gr-300:#8A939D; --gr-200:#AEB6BF;
+  /* — вишня: основной акцент — */
+  --cherry-300:#FF8A99; --cherry-400:#FF4D63; --cherry-500:#E11D3C; --cherry-600:#B8152F; --cherry-quiet:#2A1419;
+  /* — синий: дополнительный акцент — */
+  --blue-300:#8FB6FF; --blue-400:#4D8DFF; --blue-500:#2F6BE0; --blue-600:#2555B8; --blue-quiet:#151F2F;
 
-  /* — семантические токены (светлая тема — база) — */
-  --bg:var(--sand-100);
-  --bg-raised:#FFFFFF;
-  --bg-inset:var(--sand-200);
-  --bg-invert:var(--ink-900);
-  --fg:var(--ink-900);
-  --fg-muted:var(--grey-700);
-  --fg-subtle:var(--grey-500);
-  --fg-invert:#EDF2F0;
-  --border:var(--sand-300);
-  --border-strong:var(--sand-400);
-  --accent:var(--rosa-600);
-  --accent-hover:var(--rosa-700);
+  /* — семантические токены (одна тема) — */
+  --bg:var(--gr-850);
+  --bg-raised:var(--gr-800);
+  --bg-inset:var(--gr-900);
+  --bg-invert:#FFFFFF;
+  --fg:#FFFFFF;
+  --fg-muted:var(--gr-200);
+  --fg-subtle:var(--gr-300);
+  --fg-invert:var(--gr-950);
+  --border:var(--gr-600);
+  --border-strong:var(--gr-500);
+  --accent:var(--cherry-500);
+  --accent-hover:var(--cherry-600);
   --accent-fg:#FFFFFF;
-  --accent-text:var(--rosa-600);
-  --accent-quiet:var(--rosa-50);
-  --support:var(--agave-600);
-  --support-quiet:var(--agave-50);
-  --focus:var(--agave-500);
-  --success:var(--green-600);
-  --warning:var(--amber-700);
-  --danger:var(--red-600);
-  --shadow-1:0 1px 2px rgba(10,31,34,.08);
-  --shadow-2:0 8px 24px -12px rgba(10,31,34,.28);
+  --accent-text:var(--cherry-400);
+  --accent-quiet:var(--cherry-quiet);
+  --support:var(--blue-400);
+  --support-fill:var(--blue-500);
+  --support-hover:var(--blue-600);
+  --support-quiet:var(--blue-quiet);
+  --focus:var(--blue-400);
+  --success:#3CC98A;
+  --warning:#E8B23A;
+  --danger:#FF6B5E;
+  --shadow-1:0 1px 2px rgba(0,0,0,.45);
+  --shadow-2:0 14px 34px -16px rgba(0,0,0,.75);
 
   /* — ритм — */
   --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:24px; --s-6:32px; --s-7:48px; --s-8:64px; --s-9:96px;
@@ -51,26 +54,6 @@
   --font-display:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
   --font-body:"Instrument Sans","Helvetica Neue",Arial,sans-serif;
   --font-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Consolas,monospace;
-}
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --bg:var(--ink-900); --bg-raised:var(--ink-800); --bg-inset:#08191B; --bg-invert:var(--sand-100);
-    --fg:#EDF2F0; --fg-muted:#A8B7B4; --fg-subtle:#7E908D; --fg-invert:var(--ink-900);
-    --border:var(--ink-600); --border-strong:#2C555C;
-    --accent:var(--rosa-400); --accent-hover:var(--rosa-300); --accent-fg:#2A0413; --accent-text:var(--rosa-300);
-    --accent-quiet:#2B1020; --support:#3FC9B6; --support-quiet:#0C2E2C; --focus:#3FC9B6;
-    --success:#3FBE83; --warning:#E2A03F; --danger:#F0736E;
-    --shadow-1:0 1px 2px rgba(0,0,0,.5); --shadow-2:0 12px 32px -14px rgba(0,0,0,.7);
-  }
-}
-:root[data-theme="dark"]{
-  --bg:var(--ink-900); --bg-raised:var(--ink-800); --bg-inset:#08191B; --bg-invert:var(--sand-100);
-  --fg:#EDF2F0; --fg-muted:#A8B7B4; --fg-subtle:#7E908D; --fg-invert:var(--ink-900);
-  --border:var(--ink-600); --border-strong:#2C555C;
-  --accent:var(--rosa-400); --accent-hover:var(--rosa-300); --accent-fg:#2A0413; --accent-text:var(--rosa-300);
-  --accent-quiet:#2B1020; --support:#3FC9B6; --support-quiet:#0C2E2C; --focus:#3FC9B6;
-  --success:#3FBE83; --warning:#E2A03F; --danger:#F0736E;
-  --shadow-1:0 1px 2px rgba(0,0,0,.5); --shadow-2:0 12px 32px -14px rgba(0,0,0,.7);
 }
 
 *{box-sizing:border-box}
@@ -169,6 +152,8 @@ a{color:var(--accent-text)}
 .btn--secondary:hover{background:transparent; border-color:var(--fg); }
 .btn--ghost{background:transparent; color:var(--fg-muted); border-color:transparent}
 .btn--ghost:hover{background:var(--bg-inset); color:var(--fg)}
+.btn--blue{background:var(--support-fill); color:#FFFFFF}
+.btn--blue:hover{background:var(--support-hover)}
 .btn--invert{background:var(--bg-invert); color:var(--fg-invert)}
 .btn--invert:hover{background:var(--fg-muted)}
 .btn--sm{height:36px; font-size:14px; padding:0 14px}
@@ -272,8 +257,8 @@ a{color:var(--accent-text)}
   <div class="wrap masthead__inner">
     <div class="mark">We<span>Evolve</span>IT — UI/UX Kit</div>
     <div class="row">
-      <span class="meta">v1.0 · 15.09.2026</span>
-      <button class="btn btn--secondary btn--sm" id="themeToggle" type="button">Тема: система</button>
+      <span class="meta">v1.1 · 16.09.2026</span>
+      <span class="meta">Графит · вишня · синий</span>
     </div>
   </div>
 </header>
@@ -302,7 +287,7 @@ a{color:var(--accent-text)}
       <p class="hero__sub">Дизайн-кит для B2B-сайта AI-first консалтинга: цвет, шрифты, кнопки, формы и блоки страницы — собраны как один набор токенов, который можно перенести в Figma или в CSS-переменные проекта.</p>
 
       <div class="notice">
-        <b>Важно про источник.</b> Прямой доступ к weevolveit.com из этой среды закрыт egress-прокси, поэтому визуальные решения ниже — не пиксельная копия сайта, а реконструкция: содержание (позиционирование, метод из пяти фаз, цифры, структура разделов) взято из поисковой выдачи, а палитра, шрифтовая пара и параметры компонентов подобраны под эту задачу. Пришлите 2–3 скриншота или CSS сайта — и токены будут откалиброваны один в один.
+        <b>Про палитру.</b> Цвета заданы вами: графитовый фон, белый текст, вишнёвый основной акцент и синий дополнительный. Кит собран в одной теме — светлого варианта нет, поэтому каждый компонент рассчитан на тёмный фон. Содержание (позиционирование, метод из пяти фаз, цифры) взято из открытых материалов о weevolveit.com: сам сайт из этой среды недоступен, его блокирует egress-прокси.
       </div>
 
       <div class="factgrid">
@@ -319,7 +304,7 @@ a{color:var(--accent-text)}
         </div>
         <div class="stack">
           <p class="eyebrow">Принцип системы</p>
-          <p class="t-body">Одна яркая точка на экран. Фон и текст держат нейтральную тёплую базу, весь контраст отдан акценту: кнопка, цифра, одно слово в заголовке. Рамки и тени тратятся по роли, а не на каждый блок.</p>
+          <p class="t-body">Одна яркая точка на экран. Фон и текст держат графитовую базу, весь контраст отдан акценту: кнопка, цифра, одно слово в заголовке. Рамки и тени тратятся по роли, а не на каждый блок.</p>
         </div>
       </div>
     </section>
@@ -328,38 +313,44 @@ a{color:var(--accent-text)}
     <section class="section" id="s01">
       <div class="section__head">
         <p class="eyebrow">01 — Цвет</p>
-        <h2>Палитра: песок, глубокий тил, роза</h2>
-        <p class="lede">Пять рабочих цветов и три семантических. Нейтральные уведены в холодный тил — они не выглядят «системным серым», а поддерживают фирменный оттенок.</p>
+        <h2>Палитра: графит, белый, вишня, синий</h2>
+        <p class="lede">Графитовая база в четырёх ступенях, белый текст и два акцента: вишня отвечает за действие, синий — за информацию. Нейтральные уведены в холодный синеватый тон, чтобы синий акцент читался как часть системы, а не как чужой цвет.</p>
       </div>
 
       <div class="swatches">
-        <div class="swatch"><div class="swatch__chip" style="background:#0A1F22"></div><div class="swatch__body"><div class="swatch__name">Ink Teal 900</div><div class="swatch__hex">#0A1F22</div><p class="swatch__use">Основной текст, тёмный фон, инвертированные CTA-полосы.</p></div></div>
-        <div class="swatch"><div class="swatch__chip" style="background:#F6F4EF"></div><div class="swatch__body"><div class="swatch__name">Sand 100</div><div class="swatch__hex">#F6F4EF</div><p class="swatch__use">Светлый фон страницы. Тёплый, чтобы белые карточки читались как слой.</p></div></div>
-        <div class="swatch"><div class="swatch__chip" style="background:#C10059"></div><div class="swatch__body"><div class="swatch__name">Rosa 600 · акцент</div><div class="swatch__hex">#C10059</div><p class="swatch__use">Заливка primary-кнопок и ссылок на светлом фоне. <span class="ratio">6.2:1 с белым</span></p></div></div>
-        <div class="swatch"><div class="swatch__chip" style="background:#FF4D94"></div><div class="swatch__body"><div class="swatch__name">Rosa 400 · тёмная тема</div><div class="swatch__hex">#FF4D94</div><p class="swatch__use">Тот же акцент на тёмном фоне: кнопка с почти-чёрным текстом, акцентные слова.</p></div></div>
-        <div class="swatch"><div class="swatch__chip" style="background:#0E9E8E"></div><div class="swatch__body"><div class="swatch__name">Agave 500 · поддержка</div><div class="swatch__hex">#0E9E8E</div><p class="swatch__use">Фокус-кольцо, теги технологий, иконки метода. Не конкурирует с розой.</p></div></div>
-        <div class="swatch"><div class="swatch__chip" style="background:#3E4A47"></div><div class="swatch__body"><div class="swatch__name">Grey 700</div><div class="swatch__hex">#3E4A47</div><p class="swatch__use">Вторичный текст, лиды абзацев. <span class="ratio">8.4:1 на песке</span></p></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:#1C1F23"></div><div class="swatch__body"><div class="swatch__name">Graphite 850</div><div class="swatch__hex">#1C1F23</div><p class="swatch__use">Фон страницы. Холодный графит: нейтральный, но не «системный серый».</p></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:#23272C"></div><div class="swatch__body"><div class="swatch__name">Graphite 800</div><div class="swatch__hex">#23272C</div><p class="swatch__use">Карточки, попапы, шапка при скролле — слой над фоном без рамки.</p></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:#FFFFFF"></div><div class="swatch__body"><div class="swatch__name">White · основной текст</div><div class="swatch__hex">#FFFFFF</div><p class="swatch__use">Заголовки и текст. <span class="ratio">16.5:1 на графите</span></p></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:#AEB6BF"></div><div class="swatch__body"><div class="swatch__name">Graphite 200</div><div class="swatch__hex">#AEB6BF</div><p class="swatch__use">Вторичный текст, лиды и подписи. <span class="ratio">8.1:1</span></p></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:#E11D3C"></div><div class="swatch__body"><div class="swatch__name">Cherry 500 · акцент</div><div class="swatch__hex">#E11D3C</div><p class="swatch__use">Заливка primary-кнопки и активных состояний. <span class="ratio">4.7:1 с белым</span></p></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:#FF4D63"></div><div class="swatch__body"><div class="swatch__name">Cherry 400 · акцентный текст</div><div class="swatch__hex">#FF4D63</div><p class="swatch__use">Ссылки, акцентное слово в заголовке, ховер кнопки. <span class="ratio">5.1:1 на графите</span></p></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:#4D8DFF"></div><div class="swatch__body"><div class="swatch__name">Blue 400 · поддержка</div><div class="swatch__hex">#4D8DFF</div><p class="swatch__use">Второй акцент: теги, иконки, фокус-кольцо, информационные статусы. <span class="ratio">5.2:1</span></p></div></div>
       </div>
 
       <div class="scroll-x" style="margin-top:var(--s-6)">
         <table class="table">
           <caption class="eyebrow" style="text-align:left; padding-bottom:var(--s-3)">Семантика и токены</caption>
-          <thead><tr><th>Токен</th><th>Светлая</th><th>Тёмная</th><th>Где применяется</th></tr></thead>
+          <thead><tr><th>Токен</th><th>Значение</th><th>Где применяется</th></tr></thead>
           <tbody>
-            <tr><td><code>--bg</code></td><td><code>#F6F4EF</code></td><td><code>#0A1F22</code></td><td>Фон страницы</td></tr>
-            <tr><td><code>--bg-raised</code></td><td><code>#FFFFFF</code></td><td><code>#0E2B2F</code></td><td>Карточки, попапы, шапка при скролле</td></tr>
-            <tr><td><code>--fg</code></td><td><code>#0A1F22</code></td><td><code>#EDF2F0</code></td><td>Заголовки и основной текст</td></tr>
-            <tr><td><code>--fg-muted</code></td><td><code>#3E4A47</code></td><td><code>#A8B7B4</code></td><td>Описания, подписи</td></tr>
-            <tr><td><code>--accent</code></td><td><code>#C10059</code></td><td><code>#FF4D94</code></td><td>Primary-кнопка, активные состояния</td></tr>
-            <tr><td><code>--border</code></td><td><code>#DCD8CF</code></td><td><code>#1E4046</code></td><td>Разделители, обводка карточек</td></tr>
-            <tr><td><code>--success</code></td><td><code>#1E8E5A</code></td><td><code>#3FBE83</code></td><td>Форма отправлена, статус «в работе»</td></tr>
-            <tr><td><code>--warning</code></td><td><code>#B5730B</code></td><td><code>#E2A03F</code></td><td>Предупреждения, черновики</td></tr>
-            <tr><td><code>--danger</code></td><td><code>#C62828</code></td><td><code>#F0736E</code></td><td>Ошибки валидации</td></tr>
+            <tr><td><code>--bg</code></td><td><code>#1C1F23</code></td><td>Фон страницы</td></tr>
+            <tr><td><code>--bg-raised</code></td><td><code>#23272C</code></td><td>Карточки, попапы, шапка при скролле</td></tr>
+            <tr><td><code>--bg-inset</code></td><td><code>#14171A</code></td><td>Поля ввода, блоки кода, «утопленные» области</td></tr>
+            <tr><td><code>--fg</code></td><td><code>#FFFFFF</code></td><td>Заголовки и основной текст</td></tr>
+            <tr><td><code>--fg-muted</code></td><td><code>#AEB6BF</code></td><td>Описания, подписи, лиды</td></tr>
+            <tr><td><code>--fg-subtle</code></td><td><code>#8A939D</code></td><td>Метки, сноски, плейсхолдеры</td></tr>
+            <tr><td><code>--border</code></td><td><code>#3A4046</code></td><td>Разделители, обводка карточек</td></tr>
+            <tr><td><code>--accent</code></td><td><code>#E11D3C</code></td><td>Заливка primary-кнопки, активное состояние</td></tr>
+            <tr><td><code>--accent-text</code></td><td><code>#FF4D63</code></td><td>Ссылки и акцентные слова на графите</td></tr>
+            <tr><td><code>--support</code></td><td><code>#4D8DFF</code></td><td>Второй акцент: теги, иконки, фокус-кольцо</td></tr>
+            <tr><td><code>--support-fill</code></td><td><code>#2F6BE0</code></td><td>Заливка синей кнопки, инфо-плашки</td></tr>
+            <tr><td><code>--success</code></td><td><code>#3CC98A</code></td><td>Форма отправлена, статус «в работе»</td></tr>
+            <tr><td><code>--warning</code></td><td><code>#E8B23A</code></td><td>Предупреждения, черновики</td></tr>
+            <tr><td><code>--danger</code></td><td><code>#FF6B5E</code></td><td>Ошибки валидации — намеренно теплее вишни</td></tr>
           </tbody>
         </table>
       </div>
 
-      <p class="t-small" style="margin-top:var(--s-4)">Правило пропорции: 60% нейтрального фона, 30% текста и границ, 10% акцента. Роза не используется как фон больших блоков — только кнопки, подчёркивания, одно слово в заголовке и графика.</p>
+      <p class="t-small" style="margin-top:var(--s-4)">Правило пропорции: 70% графита, 20% текста и границ, 10% акцентов. Вишня отвечает за действие — primary-кнопка, активное состояние, одно слово в заголовке. Синий отвечает за информацию — теги, иконки, фокус, ссылки внутри таблиц. Менять их ролями нельзя: два «главных» цвета на экране убивают иерархию, а красная заливка на информационной плашке читается как ошибка.</p>
     </section>
 
     <!-- 02 -->
@@ -457,8 +448,8 @@ a{color:var(--accent-text)}
     <section class="section" id="s04">
       <div class="section__head">
         <p class="eyebrow">04 — Кнопки</p>
-        <h2>Четыре варианта, три размера, шесть состояний</h2>
-        <p class="lede">На экране одна primary-кнопка. Всё остальное — secondary, ghost или текстовая ссылка со стрелкой.</p>
+        <h2>Пять вариантов, три размера, шесть состояний</h2>
+        <p class="lede">На экране одна вишнёвая primary-кнопка. Всё остальное — secondary, ghost, синяя параллельная кнопка или текстовая ссылка со стрелкой.</p>
       </div>
 
       <div class="demo">
@@ -466,11 +457,12 @@ a{color:var(--accent-text)}
         <div class="row">
           <button class="btn" type="button">Let's talk <span class="btn__arrow" aria-hidden="true">→</span></button>
           <button class="btn btn--secondary" type="button">View our work</button>
-          <button class="btn btn--ghost" type="button">Download deck</button>
-          <button class="btn btn--invert" type="button">Book a call</button>
+          <button class="btn btn--ghost" type="button">See pricing</button>
+          <button class="btn btn--blue" type="button">Book a call</button>
+          <button class="btn btn--invert" type="button">Download deck</button>
           <a class="link-cta" href="#s04">See the method <span aria-hidden="true">→</span></a>
         </div>
-        <p class="t-small" style="margin-top:var(--s-4)">Primary — единственное целевое действие блока («Let's talk»). Secondary — альтернативный путь. Ghost — третьестепенное действие внутри карточки. Invert — primary на светлой полосе внутри тёмной секции и наоборот.</p>
+        <p class="t-small" style="margin-top:var(--s-4)">Primary (вишня) — единственное целевое действие блока («Let's talk»). Secondary — альтернативный путь. Ghost — третьестепенное действие внутри карточки. Blue — параллельное действие, которое не конкурирует за конверсию: демо, звонок, личный кабинет. Invert — белая плашка там, где вишня спорит с фоном, например поверх фотографии.</p>
       </div>
 
       <div class="demo">
@@ -500,7 +492,7 @@ a{color:var(--accent-text)}
             <tbody>
               <tr><td>Hover</td><td>фон → <code>--accent-hover</code>, стрелка сдвигается на 3px</td><td class="num">200ms</td></tr>
               <tr><td>Active</td><td><code>translateY(1px)</code>, без смены цвета</td><td class="num">120ms</td></tr>
-              <tr><td>Focus</td><td>кольцо 2px <code>--focus</code>, отступ 2px — виден и на тёмном, и на светлом</td><td class="num">—</td></tr>
+              <tr><td>Focus</td><td>синее кольцо 2px <code>--focus</code>, отступ 2px — не спорит с вишнёвой заливкой</td><td class="num">—</td></tr>
               <tr><td>Loading</td><td>текст скрыт, спиннер 16px, клики заблокированы</td><td class="num">700ms / оборот</td></tr>
               <tr><td>Disabled</td><td>фон <code>--bg-inset</code>, текст <code>--fg-subtle</code>, cursor not-allowed</td><td class="num">—</td></tr>
             </tbody>
@@ -694,7 +686,7 @@ a{color:var(--accent-text)}
         <div class="demo">
           <h4><span class="tick" aria-hidden="true">✓</span> Обязательно</h4>
           <ul>
-            <li>Контраст текста ≥ 4.5:1, крупного и элементов интерфейса ≥ 3:1.</li>
+            <li>Контраст текста ≥ 4.5:1, крупного и элементов интерфейса ≥ 3:1. Белый на графите даёт 16.5:1 — запас есть, тратьте его на мелкий текст, а не на выцветший серый.</li>
             <li>Видимый фокус на всех интерактивных элементах — кольцо <code>--focus</code>, не <code>outline:none</code>.</li>
             <li>Зона касания ≥ 44×44px, включая иконочные кнопки.</li>
             <li>Иконка без текста получает <code>aria-label</code>; декоративная — <code>aria-hidden="true"</code>.</li>
@@ -705,8 +697,8 @@ a{color:var(--accent-text)}
         <div class="demo">
           <h4><span class="cross" aria-hidden="true">✕</span> Частые ошибки</h4>
           <ul>
-            <li>Светло-серый текст 13px на песочном фоне — не проходит контраст.</li>
-            <li>Розовая ссылка на тёмном фоне в оттенке Rosa 600 — на тёмном нужен Rosa 300.</li>
+            <li>Серый текст светлее <code>#8A939D</code> на графите — уже не проходит 4.5:1.</li>
+            <li>Вишня <code>#E11D3C</code> как цвет текста на графите — всего 3.5:1; для текста нужен <code>#FF4D63</code>.</li>
             <li>Плейсхолдер вместо лейбла: исчезает при вводе.</li>
             <li>Кнопка, сделанная из <code>div</code> — не фокусируется и не работает с клавиатуры.</li>
             <li>Текст внутри картинки-баннера: не читается скринридером и не масштабируется.</li>
@@ -728,21 +720,34 @@ a{color:var(--accent-text)}
           <button class="btn btn--secondary btn--sm" type="button" id="copyBtn" data-target="tokens">Скопировать</button>
         </div>
         <div class="code-block"><pre id="tokens">:root{
-  /* цвет */
-  --ink-900:#0A1F22;  --ink-800:#0E2B2F;  --ink-600:#1E4046;
-  --sand-100:#F6F4EF; --sand-200:#ECE8E0; --sand-300:#DCD8CF; --sand-400:#C5C0B6;
-  --rosa-300:#FF7AAE; --rosa-400:#FF4D94; --rosa-500:#E0006C;
-  --rosa-600:#C10059; --rosa-700:#A3004B; --rosa-50:#FFE6F0;
-  --agave-500:#0E9E8E; --agave-600:#0B7E72; --agave-50:#DFF3F0;
-  --grey-500:#7C837F;  --grey-700:#3E4A47;
+  color-scheme:dark;
 
-  /* семантика — светлая тема */
-  --bg:var(--sand-100); --bg-raised:#FFFFFF; --bg-inset:var(--sand-200);
-  --fg:var(--ink-900); --fg-muted:var(--grey-700); --fg-subtle:var(--grey-500);
-  --border:var(--sand-300); --border-strong:var(--sand-400);
-  --accent:var(--rosa-600); --accent-hover:var(--rosa-700); --accent-fg:#FFFFFF;
-  --accent-text:var(--rosa-600); --focus:var(--agave-500);
-  --success:#1E8E5A; --warning:#B5730B; --danger:#C62828;
+  /* графит */
+  --gr-950:#0E1013; --gr-900:#14171A; --gr-850:#1C1F23; --gr-800:#23272C;
+  --gr-700:#2C3137; --gr-600:#3A4046; --gr-500:#4E555D;
+  --gr-300:#8A939D; --gr-200:#AEB6BF;
+
+  /* вишня — основной акцент */
+  --cherry-300:#FF8A99; --cherry-400:#FF4D63;
+  --cherry-500:#E11D3C; --cherry-600:#B8152F; --cherry-quiet:#2A1419;
+
+  /* синий — дополнительный акцент */
+  --blue-300:#8FB6FF; --blue-400:#4D8DFF;
+  --blue-500:#2F6BE0; --blue-600:#2555B8; --blue-quiet:#151F2F;
+
+  /* семантика */
+  --bg:var(--gr-850); --bg-raised:var(--gr-800); --bg-inset:var(--gr-900);
+  --bg-invert:#FFFFFF; --fg:#FFFFFF; --fg-muted:var(--gr-200);
+  --fg-subtle:var(--gr-300); --fg-invert:var(--gr-950);
+  --border:var(--gr-600); --border-strong:var(--gr-500);
+  --accent:var(--cherry-500); --accent-hover:var(--cherry-600);
+  --accent-fg:#FFFFFF; --accent-text:var(--cherry-400); --accent-quiet:var(--cherry-quiet);
+  --support:var(--blue-400); --support-fill:var(--blue-500);
+  --support-hover:var(--blue-600); --support-quiet:var(--blue-quiet);
+  --focus:var(--blue-400);
+  --success:#3CC98A; --warning:#E8B23A; --danger:#FF6B5E;
+  --shadow-1:0 1px 2px rgba(0,0,0,.45);
+  --shadow-2:0 14px 34px -16px rgba(0,0,0,.75);
 
   /* ритм */
   --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:24px;
@@ -757,20 +762,12 @@ a{color:var(--accent-text)}
   --font-display:"Bricolage Grotesque",Arial,sans-serif;
   --font-body:"Instrument Sans",Arial,sans-serif;
   --font-mono:"JetBrains Mono",ui-monospace,monospace;
-}
-:root[data-theme="dark"]{
-  --bg:var(--ink-900); --bg-raised:var(--ink-800); --bg-inset:#08191B;
-  --fg:#EDF2F0; --fg-muted:#A8B7B4; --fg-subtle:#7E908D;
-  --border:var(--ink-600); --border-strong:#2C555C;
-  --accent:var(--rosa-400); --accent-hover:var(--rosa-300); --accent-fg:#2A0413;
-  --accent-text:var(--rosa-300); --focus:#3FC9B6;
-  --success:#3FBE83; --warning:#E2A03F; --danger:#F0736E;
 }</pre></div>
       </div>
     </section>
 
     <footer class="foot">
-      <span>Evolve Kit · реконструкция дизайн-системы по материалам о weevolveit.com</span>
+      <span>Evolve Kit · графитовая тема · v1.1</span>
       <span class="meta">Bricolage Grotesque · Instrument Sans · JetBrains Mono</span>
     </footer>
   </main>
@@ -778,17 +775,6 @@ a{color:var(--accent-text)}
 
 <script>
 (function(){
-  var root=document.documentElement, btn=document.getElementById('themeToggle');
-  var order=['system','light','dark'], names={system:'система',light:'светлая',dark:'тёмная'}, i=0;
-  try{ var saved=localStorage.getItem('evolvekit-theme'); if(saved && order.indexOf(saved)>-1){ i=order.indexOf(saved); apply(); } }catch(e){}
-  function apply(){
-    var mode=order[i];
-    if(mode==='system'){ root.removeAttribute('data-theme'); } else { root.setAttribute('data-theme',mode); }
-    btn.textContent='Тема: '+names[mode];
-    try{ localStorage.setItem('evolvekit-theme',mode); }catch(e){}
-  }
-  btn.addEventListener('click',function(){ i=(i+1)%order.length; apply(); });
-
   var copy=document.getElementById('copyBtn');
   copy.addEventListener('click',function(){
     var text=document.getElementById(copy.dataset.target).textContent;
