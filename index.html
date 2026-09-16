@@ -9,35 +9,40 @@
    прозрачная шапка, нижний центрированный блок, угловые CTA.
    ============================================================ */
 :root{
-  /* палитра кита */
-  --ink-900:#0A1F22; --ink-800:#0E2B2F; --ink-700:#14383D; --ink-600:#1E4046;
-  --sand-100:#F6F4EF; --sand-200:#ECE8E0; --sand-300:#DCD8CF; --sand-400:#C5C0B6;
-  --rosa-300:#FF7AAE; --rosa-400:#FF4D94; --rosa-500:#E0006C; --rosa-600:#C10059; --rosa-700:#A3004B;
-  --agave-500:#0E9E8E; --agave-600:#0B7E72;
-  --grey-500:#7C837F; --grey-700:#3E4A47; --amber:#E2A03F;
+  color-scheme:dark;
+  /* графит */
+  --gr-950:#0E1013; --gr-900:#14171A; --gr-850:#1C1F23; --gr-800:#23272C;
+  --gr-700:#2C3137; --gr-600:#3A4046; --gr-500:#4E555D; --gr-300:#8A939D; --gr-200:#AEB6BF;
+  /* вишня — основной акцент */
+  --cherry-300:#FF8A99; --cherry-400:#FF4D63; --cherry-500:#E11D3C; --cherry-600:#B8152F; --cherry-quiet:#2A1419;
+  /* синий — дополнительный акцент */
+  --blue-300:#8FB6FF; --blue-400:#4D8DFF; --blue-500:#2F6BE0; --blue-600:#2555B8; --blue-quiet:#151F2F;
 
-  /* семантика — светлая тема (база) */
-  --bg:var(--sand-100); --bg-raised:#FFFFFF; --bg-inset:var(--sand-200);
-  --fg:var(--ink-900); --fg-muted:var(--grey-700); --fg-subtle:var(--grey-500);
-  --border:var(--sand-300); --border-strong:var(--sand-400);
-  --accent:var(--rosa-600); --accent-hover:var(--rosa-700); --accent-fg:#FFFFFF; --accent-text:var(--rosa-600);
-  --focus:var(--agave-500);
+  /* семантика */
+  --bg:var(--gr-850); --bg-raised:var(--gr-800); --bg-inset:var(--gr-900); --bg-invert:#FFFFFF;
+  --fg:#FFFFFF; --fg-muted:var(--gr-200); --fg-subtle:var(--gr-300); --fg-invert:var(--gr-950);
+  --border:var(--gr-600); --border-strong:var(--gr-500);
+  --accent:var(--cherry-500); --accent-hover:var(--cherry-600); --accent-fg:#FFFFFF; --accent-text:var(--cherry-400);
+  --support:var(--blue-400); --support-fill:var(--blue-500); --support-quiet:var(--blue-quiet);
+  --focus:var(--blue-400);
+  --success:#3CC98A; --warning:#E8B23A; --danger:#FF6B5E;
 
-  /* сцена героя — всегда ночная: поверх видео */
-  --stage:#0C2429;
-  --stage-deep:#05100F;
-  --stage-line:rgba(226,160,63,.24);
-  --stage-glow:rgba(226,160,63,.3);
-  --stage-fg:#F4F8F6;
-  --stage-fg-muted:rgba(244,248,246,.7);
-  --stage-scrim:linear-gradient(to top, rgba(5,16,15,.96) 0%, rgba(5,16,15,.8) 34%, rgba(5,16,15,.16) 72%, rgba(5,16,15,0) 100%);
-  --stage-hairline:rgba(244,248,246,.22);
-  --stage-tile:rgba(244,248,246,.1);
-  --stage-tile-line:rgba(244,248,246,.28);
-  --stage-block:#0A1F22;
-  --stage-block-fg:#F3F6F4;
+  /* сцена героя — графитовая студия поверх видео */
+  --stage:var(--gr-800);
+  --stage-deep:var(--gr-950);
+  --stage-line:rgba(143,182,255,.18);
+  --stage-glow:rgba(225,29,60,.26);
+  --stage-fg:#FFFFFF;
+  --stage-fg-muted:rgba(255,255,255,.7);
+  --stage-scrim:linear-gradient(to top, rgba(14,16,19,.96) 0%, rgba(14,16,19,.8) 34%, rgba(14,16,19,.16) 72%, rgba(14,16,19,0) 100%);
+  --stage-hairline:rgba(255,255,255,.2);
+  --stage-tile:rgba(255,255,255,.1);
+  --stage-tile-line:rgba(255,255,255,.3);
+  --stage-block:var(--gr-900);
+  --stage-block-fg:#FFFFFF;
 
-  --globe-core:#164049; --globe-core-2:#05171A; --globe-dot:#CFE5DF; --globe-rim:rgba(14,158,142,.45);
+  /* планета */
+  --globe-core:#2C3137; --globe-core-2:#0E1013; --globe-dot:#C9D2DC; --globe-rim:rgba(77,141,255,.45);
 
   --s-2:8px; --s-3:12px; --s-4:16px; --s-5:24px; --s-6:32px; --s-7:48px; --s-8:64px;
   --r-xs:2px; --r-sm:6px; --r-md:10px; --r-pill:999px;
@@ -46,42 +51,6 @@
   --font-display:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
   --font-body:"Instrument Sans","Helvetica Neue",Arial,sans-serif;
   --font-mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
-}
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --bg:var(--ink-900); --bg-raised:var(--ink-800); --bg-inset:#08191B;
-    --fg:#EDF2F0; --fg-muted:#A8B7B4; --fg-subtle:#7E908D;
-    --border:var(--ink-600); --border-strong:#2C555C;
-    --accent:var(--rosa-400); --accent-hover:var(--rosa-300); --accent-fg:#2A0413; --accent-text:var(--rosa-300);
-    --globe-core:#13363D; --globe-core-2:#040F11; --globe-dot:#B7DCD5; --globe-rim:rgba(63,201,182,.42);
-    --focus:#3FC9B6;
-    --stage:#0C2429; --stage-deep:#05100F; --stage-line:rgba(226,160,63,.24);
-    --stage-glow:rgba(226,160,63,.3);
-    --stage-fg:#F4F8F6; --stage-fg-muted:rgba(244,248,246,.7);
-    --stage-scrim:linear-gradient(to top, rgba(5,16,15,.96) 0%, rgba(5,16,15,.78) 34%, rgba(5,16,15,.14) 72%, rgba(5,16,15,0) 100%);
-    --stage-hairline:rgba(244,248,246,.22);
-    --stage-tile:rgba(244,248,246,.1);
-    --stage-tile-line:rgba(244,248,246,.28);
-    --stage-block:#0A1F22;
-    --stage-block-fg:#F3F6F4;
-  }
-}
-:root[data-theme="dark"]{
-  --bg:var(--ink-900); --bg-raised:var(--ink-800); --bg-inset:#08191B;
-  --fg:#EDF2F0; --fg-muted:#A8B7B4; --fg-subtle:#7E908D;
-  --border:var(--ink-600); --border-strong:#2C555C;
-  --accent:var(--rosa-400); --accent-hover:var(--rosa-300); --accent-fg:#2A0413; --accent-text:var(--rosa-300);
-  --globe-core:#13363D; --globe-core-2:#040F11; --globe-dot:#B7DCD5; --globe-rim:rgba(63,201,182,.42);
-  --focus:#3FC9B6;
-  --stage:#0C2429; --stage-deep:#05100F; --stage-line:rgba(226,160,63,.24);
-  --stage-glow:rgba(226,160,63,.3);
-  --stage-fg:#F4F8F6; --stage-fg-muted:rgba(244,248,246,.7);
-  --stage-scrim:linear-gradient(to top, rgba(5,16,15,.96) 0%, rgba(5,16,15,.78) 34%, rgba(5,16,15,.14) 72%, rgba(5,16,15,0) 100%);
-  --stage-hairline:rgba(244,248,246,.22);
-  --stage-tile:rgba(244,248,246,.1);
-  --stage-tile-line:rgba(244,248,246,.28);
-  --stage-block:#0A1F22;
-  --stage-block-fg:#F3F6F4;
 }
 
 *{box-sizing:border-box}
@@ -337,21 +306,21 @@ a{color:inherit; text-decoration:none}
           <p class="eyebrow">Разбор экрана</p>
           <h2>Что из кита пошло в дело</h2>
         </div>
-        <button class="ghost" id="themeToggle" type="button">Тема: система</button>
+        <a class="ghost" href="ui-kit/">Открыть UI-кит <span aria-hidden="true">↗</span></a>
       </div>
       <div class="spec__grid">
         <div class="spec__item"><h3>Заголовок</h3><p>Bricolage Grotesque 800, uppercase, <code>clamp(40px → 114px)</code>, интерлиньяж 0.9, трекинг −0.045em.</p></div>
-        <div class="spec__item"><h3>Кикер со звёздами</h3><p>Instrument Sans italic 14px; звёзды — акцент <code>--accent-text</code>, единственное цветное пятно сверху.</p></div>
+        <div class="spec__item"><h3>Кикер со звёздами</h3><p>Instrument Sans italic 14px; звёзды — вишня <code>--accent-text</code>, единственное цветное пятно сверху.</p></div>
         <div class="spec__item"><h3>Подзаголовок</h3><p>14.5px / 1.65, ширина ≤ 56 знаков, цвет <code>--stage-fg-muted</code>.</p></div>
-        <div class="spec__item"><h3>Угловые CTA</h3><p>Плитка 56×56 со стрелкой + блок-лейбл: слева нейтральный <code>--stage-block</code>, справа акцентный <code>--accent</code>.</p></div>
-        <div class="spec__item"><h3>Фон</h3><p>Зацикленный ролик 1280×720, 12 с, WebM 466 КБ: панельная стена, дыхание лампы, световая волна и пыль в луче. <code>object-fit:cover</code>.</p></div>
+        <div class="spec__item"><h3>Угловые CTA</h3><p>Плитка 56×56 со стрелкой + блок-лейбл: слева графитовый <code>--stage-block</code>, справа вишнёвый <code>--accent</code>.</p></div>
+        <div class="spec__item"><h3>Фон</h3><p>Зацикленный ролик 1280×720, 12 с, WebM: графитовая панельная стена, синяя световая волна и вишнёвое свечение снизу. <code>object-fit:cover</code>.</p></div>
         <div class="spec__item"><h3>Навигация</h3><p>12.5px uppercase, +0.06em; активный пункт — <code>--stage-fg</code>, остальные приглушены; «Client portal» отделён волоском.</p></div>
         <div class="spec__item"><h3>Подстраховка</h3><p>Poster-кадр держит экран до первого кадра, под ним CSS-сцена на градиентах — если видео не загрузилось, первый экран выглядит так же.</p></div>
-        <div class="spec__item"><h3>Движение</h3><p>Ховеры 200ms на <code>--ease</code>, сдвиг стрелки на 2px, индикатор прокрутки; всё выключается при <code>reduced-motion</code>.</p></div>
+        <div class="spec__item"><h3>Палитра</h3><p>Одна тема — графит <code>#1C1F23</code>, белый текст, вишня на действие, синий на поддержку: фокус-кольца, рим планеты, световая волна в видео.</p></div>
       </div>
       <div class="spec__foot">
-        <span>Первый экран занимает ровно высоту окна с учётом safe-area; на &lt;900px угловые CTA превращаются в стек на всю ширину.</span>
-        <span class="eyebrow">Evolve Kit · v1.0</span>
+        <span>Первый экран занимает ровно высоту окна с учётом safe-area; на &lt;900px угловые CTA превращаются в стек на всю ширину. Ховеры 200ms, всё движение выключается при <code>prefers-reduced-motion</code>.</span>
+        <span class="eyebrow">Evolve Kit · v1.1 · графит</span>
       </div>
     </div>
   </section>
@@ -359,17 +328,6 @@ a{color:inherit; text-decoration:none}
 
 <script>
 (function(){
-  var root=document.documentElement, btn=document.getElementById('themeToggle');
-  var order=['system','light','dark'], names={system:'система',light:'дневная',dark:'ночная'}, i=0;
-  function apply(){
-    var m=order[i];
-    if(m==='system'){ root.removeAttribute('data-theme'); } else { root.setAttribute('data-theme',m); }
-    btn.textContent='Тема: '+names[m];
-    try{ localStorage.setItem('evolve-hero-theme',m); }catch(e){}
-  }
-  try{ var s=localStorage.getItem('evolve-hero-theme'); if(s&&order.indexOf(s)>-1){ i=order.indexOf(s); apply(); } }catch(e){}
-  btn.addEventListener('click',function(){ i=(i+1)%order.length; apply(); });
-
   var nb=document.getElementById('navBtn'), np=document.getElementById('navPanel');
   nb.addEventListener('click',function(){
     var open=nb.getAttribute('aria-expanded')==='true';
